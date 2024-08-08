@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const ClubsKayaksList = () => {
+const PrivateKayaksList = () => {
   const [kayaks, setKayaks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,9 +11,9 @@ const ClubsKayaksList = () => {
       try {
         const response = await axios.get('http://localhost:5005/kayaks');
         console.log('Fetched kayaks:', response.data); // Debugging log
-        const clubKayaks = response.data.filter(kayak => kayak.ownerType === 'club boat');
-        console.log('Filtered club kayaks:', clubKayaks); // Debugging log
-        setKayaks(clubKayaks);
+        const privateKayaks = response.data.filter(kayak => kayak.ownerType === 'private boat');
+        console.log('Filtered private kayaks:', privateKayaks); // Debugging log
+        setKayaks(privateKayaks);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -29,7 +29,7 @@ const ClubsKayaksList = () => {
 
   return (
     <div>
-      <h2>Club Kayaks</h2>
+      <h2>Private Kayaks</h2>
       <ul>
         {kayaks.map((kayak) => (
           <li key={kayak._id}>
@@ -43,4 +43,4 @@ const ClubsKayaksList = () => {
   );
 };
 
-export default ClubsKayaksList;
+export default PrivateKayaksList;

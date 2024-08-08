@@ -6,6 +6,7 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import KayakDetailsPage from "./pages/KayakDetailsPage/KayakDetailsPage";
+import CreateKayakPage from "./pages/CreateKayakPage/CreateKayakPage";
 
 import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
@@ -49,6 +50,15 @@ function App() {
           path="/kayaks/:id"
           element={
           <KayakDetailsPage />
+          }
+        />
+
+        <Route
+          path="/create-new-kayak"
+          element={
+            
+              <CreateKayakPage />
+            
           }
         />
 
