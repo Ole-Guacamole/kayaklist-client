@@ -1,10 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { AuthContext } from '../../context/auth.context';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const CreateKayakPage = () => {
-  const { user } = useContext(AuthContext);
+const EditKayakPage = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     ownerType: '',
@@ -20,22 +19,23 @@ const CreateKayakPage = () => {
     hasBulkheads: false,
     steering: '',
     description: '',
-    imageUrl: '',
-    user_id: ''
+    imageUrl: ''
   });
   const [error, setError] = useState('');
   const [imageFile, setImageFile] = useState(null);
-  const [isUserLoaded, setIsUserLoaded] = useState(false);
 
   useEffect(() => {
-    if (user) {
-      setFormData(prevFormData => ({
-        ...prevFormData,
-        user_id: user._id
-      }));
-      setIsUserLoaded(true);
-    }
-  }, [user]);
+    const fetchKayak = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5005/kayaks/${id}`);
+        setFormData(response.data);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchKayak();
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -51,10 +51,6 @@ const CreateKayakPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isUserLoaded) {
-      setError('User information is not available. Please wait and try again.');
-      return;
-    }
 
     try {
       let imageUrl = formData.imageUrl;
@@ -67,8 +63,8 @@ const CreateKayakPage = () => {
       }
 
       const kayakData = { ...formData, imageUrl };
-      await axios.post('http://localhost:5005/kayaks', kayakData);
-      navigate('/');
+      await axios.put(`http://localhost:5005/kayaks/${id}`, kayakData);
+      navigate(`/kayaks/${id}`);
     } catch (err) {
       setError(err.message);
     }
@@ -76,8 +72,8 @@ const CreateKayakPage = () => {
 
   return (
     <div>
-      <h2>Create New Kayak</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <h2>Edit Kayak</h2>
+      {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>
         <label>
           Owner Type:
@@ -165,10 +161,10 @@ const CreateKayakPage = () => {
           Image:
           <input type="file" onChange={handleFileChange} />
         </label>
-        <button type="submit">Create Kayak</button>
+        <button type="submit">Update Kayak</button>
       </form>
     </div>
   );
 };
 
-export default CreateKayakPage;
+export default EditKayakPage;

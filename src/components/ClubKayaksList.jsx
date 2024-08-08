@@ -11,7 +11,7 @@ const ClubsKayaksList = () => {
       try {
         const response = await axios.get('http://localhost:5005/kayaks');
         console.log('Fetched kayaks:', response.data); // Debugging log
-        const clubKayaks = response.data.filter(kayak => kayak.ownerType === 'club boat');
+        const clubKayaks = response.data.filter(kayak => kayak.ownerType === 'Club Boat');
         console.log('Filtered club kayaks:', clubKayaks); // Debugging log
         setKayaks(clubKayaks);
       } catch (err) {
@@ -35,7 +35,7 @@ const ClubsKayaksList = () => {
           <li key={kayak._id}>
             <h3>{kayak.name}</h3>
             <p>{kayak.description}</p>
-            <img src={kayak.imageUrl} alt="" />
+            <img src={kayak.imageUrl} alt={kayak.name} className="max-w-xs w-full h-auto"  />
           </li>
         ))}
       </ul>

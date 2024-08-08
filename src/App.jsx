@@ -7,6 +7,7 @@ import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import KayakDetailsPage from "./pages/KayakDetailsPage/KayakDetailsPage";
 import CreateKayakPage from "./pages/CreateKayakPage/CreateKayakPage";
+import EditKayakPage from "./pages/EditKayakPage/EditKayakPage";
 
 import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
@@ -58,6 +59,15 @@ function App() {
           element={
             
               <CreateKayakPage />
+            
+          }
+        />
+
+        <Route
+          path="/kayaks/:id/edit"
+          element={
+            
+              <EditKayakPage />
             
           }
         />
