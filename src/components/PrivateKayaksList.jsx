@@ -9,7 +9,7 @@ const PrivateKayaksList = () => {
   useEffect(() => {
     const fetchKayaks = async () => {
       try {
-        const response = await axios.get('http://localhost:5005/kayaks');
+        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/kayaks`);
         console.log('Fetched kayaks:', response.data); // Debugging log
         const privateKayaks = response.data.filter(kayak => kayak.ownerType === 'Private Boat');
         console.log('Filtered private kayaks:', privateKayaks); // Debugging log

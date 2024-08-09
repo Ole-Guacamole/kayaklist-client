@@ -9,7 +9,7 @@ const ClubsKayaksList = () => {
   useEffect(() => {
     const fetchKayaks = async () => {
       try {
-        const response = await axios.get('http://localhost:5005/kayaks');
+        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/kayaks`); 
         console.log('Fetched kayaks:', response.data); // Debugging log
         const clubKayaks = response.data.filter(kayak => kayak.ownerType === 'Club Boat');
         console.log('Filtered club kayaks:', clubKayaks); // Debugging log

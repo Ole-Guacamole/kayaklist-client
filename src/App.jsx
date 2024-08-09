@@ -8,6 +8,8 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import KayakDetailsPage from "./pages/KayakDetailsPage/KayakDetailsPage";
 import CreateKayakPage from "./pages/CreateKayakPage/CreateKayakPage";
 import EditKayakPage from "./pages/EditKayakPage/EditKayakPage";
+import KayakListPage from "./pages/KayakListPage/KayakListPage";
+import KayakRecoPage from "./pages/KayakRecoPage/KayakRecoPage";
 
 import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
@@ -47,31 +49,15 @@ function App() {
           }
         />
 
-        <Route
-          path="/kayaks/:id"
-          element={
-          <KayakDetailsPage />
-          }
-        />
+        <Route path="/kayaks/:id" element={<KayakDetailsPage />} />
 
-        <Route
-          path="/create-new-kayak"
-          element={
-            
-              <CreateKayakPage />
-            
-          }
-        />
+        <Route path="/kayaks/" element={<KayakListPage />} />
 
-        <Route
-          path="/kayaks/:id/edit"
-          element={
-            
-              <EditKayakPage />
-            
-          }
-        />
+        <Route path="/kayaks/reco" element={<KayakRecoPage />} />
 
+        <Route path="/create-new-kayak" element={<CreateKayakPage />} />
+
+        <Route path="/kayaks/:id/edit" element={<EditKayakPage />} />
       </Routes>
     </div>
   );
