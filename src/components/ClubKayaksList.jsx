@@ -30,15 +30,17 @@ const ClubsKayaksList = () => {
   return (
     <div>
       <h2>Club Kayaks</h2>
-      <ul>
-        {kayaks.map((kayak) => (
-          <li key={kayak._id}>
-            <h3>{kayak.name}</h3>
-            <p>{kayak.description}</p>
+      <ul className="flex flex-wrap">
+      {kayaks.map((kayak) => (
+        <li key={kayak._id} className="w-full md:w-1/2 lg:w-1/3 p-2">
+          <div className="border p-4 rounded-lg">
+            <h3 className="text-xl font-bold">{kayak.name}</h3>
+            <p className="mb-4">{kayak.description}</p>
             <img src={kayak.imageUrl} alt={kayak.name} className="max-w-xs w-full h-auto"  />
-          </li>
-        ))}
-      </ul>
+          </div>
+        </li>
+      ))}
+    </ul>
     </div>
   );
 };

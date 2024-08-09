@@ -1,10 +1,2 @@
-// tailwind.config.js
-import daisyui from "daisyui";
-
-export default {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  theme: {
-    extend: {},
-  },
-  plugins: [daisyui],
-};
+export const content = ['./src/**/*.{js,ts,jsx,tsx}'];
+export const plugins = [require('daisyui')];

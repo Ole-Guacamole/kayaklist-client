@@ -12,16 +12,19 @@ function ReviewList() {
     return <div>Please log in to see reviews.</div>;
   }
 
+  // Sort reviews by createdAt in descending order
+  const sortedReviews = reviews.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
   return (
     <div>
       <ToastContainer key="toast-container" />
-      {reviews && reviews.length > 0 ? (
-        reviews.map((review) => (
+      {sortedReviews && sortedReviews.length > 0 ? (
+        sortedReviews.map((review) => (
           <div key={review._id}>
             <p>Rating: {review.rating}</p>
             <p>Review: {review.reviewContent}</p>
             {review.user_id === user._id && (
-              <button onClick={() => handleDelete(review._id)}>Delete</button>
+              <button className="btn" onClick={() => handleDelete(review._id)}>Delete</button>
             )}
           </div>
         ))

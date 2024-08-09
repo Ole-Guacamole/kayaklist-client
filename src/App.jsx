@@ -17,7 +17,7 @@ import IsAnon from "./components/IsAnon/IsAnon";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App flex flex-col items-center justify-center min-h-screen">
       <Navbar />
 
       <Routes>
