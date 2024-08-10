@@ -4,16 +4,14 @@ const HomePage = () => {
   return (
     <div>
       <h1>Welcome to KayakList</h1>
-      <nav>
-        <ul>
-          <li>
+      
+      <div className="rounded-box border p-4 m-4">
             <Link to="/kayaks">View All Kayaks</Link>
-          </li>
-          <li>
-            <Link to="/kayaks/reco">Recommended Kayaks</Link>
-          </li>
-        </ul>
-      </nav>
+        </div>
+      <div className="rounded-box border p-4 m-4">
+            <Link to="/kayaks/reco">Get personal reccommendation</Link>
+      </div>
+     
     </div>
   );
 };

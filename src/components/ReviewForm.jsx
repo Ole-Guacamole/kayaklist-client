@@ -49,12 +49,13 @@ function ReviewForm() {
       <label>
         Rating:
         <select
+          className="select select-bordered w-full"
           name="rating"
           value={reviewState.rating ?? ""}
           onChange={handleChange}
           required
         >
-          <option value="">Select Rating</option>
+          <option value="" disabled selected>Select Rating</option>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -66,6 +67,7 @@ function ReviewForm() {
       <label>
         Review:
         <textarea
+          className="textarea textarea-bordered w-full"
           name="reviewContent"
           value={reviewState.reviewContent ?? ""}
           onChange={handleChange}

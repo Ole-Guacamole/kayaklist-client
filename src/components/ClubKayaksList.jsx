@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const ClubsKayaksList = () => {
   const [kayaks, setKayaks] = useState([]);
@@ -31,16 +32,22 @@ const ClubsKayaksList = () => {
     <div>
       <h2>Club Kayaks</h2>
       <ul className="flex flex-wrap">
-      {kayaks.map((kayak) => (
-        <li key={kayak._id} className="w-full md:w-1/2 lg:w-1/3 p-2">
-          <div className="border p-4 rounded-lg">
-            <h3 className="text-xl font-bold">{kayak.name}</h3>
-            <p className="mb-4">{kayak.description}</p>
-            <img src={kayak.imageUrl} alt={kayak.name} className="max-w-xs w-full h-auto"  />
-          </div>
-        </li>
-      ))}
-    </ul>
+        {kayaks.map((kayak) => (
+          <li key={kayak._id} className="w-full md:w-1/2 lg:w-1/3 p-2">
+            <Link to={`/kayaks/${kayak._id}`}>
+            <div className="border p-4 rounded-lg">
+              <img
+                src={kayak.imageUrl}
+                alt={kayak.name}
+                className="max-w-xl w-full h-auto"
+              />
+              <h3 className="text-xl font-bold">{kayak.name}</h3>
+              <p className="mb-4">{kayak.characteristics}</p>
+            </div>
+          </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

@@ -30,7 +30,7 @@ const KayakDetailsPage = () => {
     setShowReviewForm((prevState) => !prevState);
   };
 
-  const handleReviewSubmitted = (newReview) => {
+  const handleReviewSubmitted = () => {
     setShowReviewForm(false);
   };
 
@@ -38,8 +38,8 @@ const KayakDetailsPage = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="card shadow-lg p-6">
+    <div className="mx-auto p-4">
+      <div className="rounded-box bg-neutral/50 max-w-xl p-6">
         <h2 className="text-2xl font-bold mb-4">{kayak.name}</h2>
         {kayak.imageUrl && (
           <img
@@ -60,68 +60,65 @@ const KayakDetailsPage = () => {
             <strong>Characteristics:</strong> {kayak.characteristics}
           </p>
         </div>
-        <div className="w-full md:w-1/2 p-2">
+        <div className="w-full  p-2">
           <p>
             <strong>Type:</strong> {kayak.type}
           </p>
         </div>
-        <div className="w-full md:w-1/2 p-2">
+        <div className="w-full  p-2">
           <p>
             <strong>Material:</strong> {kayak.material}
           </p>
-
-          <div className="w-full md:w-1/2 p-2">
-            <p>
-              <strong>Seats:</strong> {kayak.seats}
-            </p>
-          </div>
-          <div className="w-full md:w-1/2 p-2">
-            <p>
-              <strong>Paddler Size:</strong> {kayak.paddlerSize}
-            </p>
-          </div>
-          <div className="w-full md:w-1/2 p-2">
-            <p>
-              <strong>Stability:</strong> {kayak.stability}
-            </p>
-          </div>
-          <div className="w-full md:w-1/2 p-2">
-            <p>
-              <strong>Speed:</strong> {kayak.speed}
-            </p>
-          </div>
-          <div className="w-full md:w-1/2 p-2">
-            <p>
-              <strong>Has Bulkheads:</strong>{" "}
-              {kayak.hasBulkheads ? "Yes" : "No"}
-            </p>
-          </div>
-          <div className="w-full md:w-1/2 p-2">
-            <p>
-              <strong>Steering:</strong> {kayak.steering}
-            </p>
-          </div>
-          <div className="w-full p-2">
-            <p>
-              <strong>Description:</strong> {kayak.description}
-            </p>
-          </div>
         </div>
+        <div className="w-full p-2">
+          <p>
+            <strong>Seats:</strong> {kayak.seats}
+          </p>
+        </div>
+        <div className="w-full p-2">
+          <p>
+            <strong>Paddler Size:</strong> {kayak.paddlerSize}
+          </p>
+        </div>
+        <div className="w-full  p-2">
+          <p>
+            <strong>Stability:</strong> {kayak.stability}
+          </p>
+        </div>
+        <div className="w-full p-2">
+          <p>
+            <strong>Speed:</strong> {kayak.speed}
+          </p>
+        </div>
+        <div className="w-full p-2">
+          <p>
+            <strong>Has Bulkheads:</strong> {kayak.hasBulkheads ? "Yes" : "No"}
+          </p>
+        </div>
+        <div className="w-full  p-2">
+          <p>
+            <strong>Steering:</strong> {kayak.steering}
+          </p>
+        </div>
+        <div className="w-full p-2">
+          <p>
+            <strong>Description:</strong> {kayak.description}
+          </p>
+        </div>
+      </div>
 
-        <div className="mt-6">
-          <button className="btn btn-primary" onClick={toggleReviewForm}>
+      <div className="w-full mt-6">
+        <div className="flex justify-center">
+          <button className="btn btn-outline" onClick={toggleReviewForm}>
             {showReviewForm ? "Cancel" : "Add Review"}
           </button>
-
-          {showReviewForm && (
-            <ReviewForm
-              kayakId={id}
-              onReviewSubmitted={handleReviewSubmitted}
-            />
-          )}
-
-          <ReviewList kayakId={id} />
         </div>
+
+        {showReviewForm && (
+          <ReviewForm kayakId={id} onReviewSubmitted={handleReviewSubmitted} />
+        )}
+
+        <ReviewList kayakId={id} />
       </div>
     </div>
   );
