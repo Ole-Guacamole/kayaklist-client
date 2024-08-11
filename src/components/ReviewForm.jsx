@@ -46,7 +46,7 @@ function ReviewForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
+      <label className="w-full">
         Rating:
         <select
           className="select select-bordered w-full"
@@ -55,7 +55,7 @@ function ReviewForm() {
           onChange={handleChange}
           required
         >
-          <option value="" disabled selected>Select Rating</option>
+          <option value="" disabled>Select Rating</option>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -64,7 +64,7 @@ function ReviewForm() {
         </select>
       </label>
       <br />
-      <label>
+      <label className="w-full">
         Review:
         <textarea
           className="textarea textarea-bordered w-full"
@@ -75,7 +75,9 @@ function ReviewForm() {
         />
       </label>
       <br />
-      <button className="btn" type="submit">Submit Review</button>
+      <div className="flex justify-center items-center">
+        <button className="btn btn-primary btn-outline mx-2" type="submit">Submit Review</button>
+      </div>
     </form>
   );
 }

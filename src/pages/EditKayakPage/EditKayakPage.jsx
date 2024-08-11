@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const EditKayakPage = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     ownerType: '',
     name: '',
@@ -10,79 +12,66 @@ const EditKayakPage = () => {
     type: '',
     material: '',
     characteristics: '',
-    seats: '',
+    seats: 1,
     paddlerSize: '',
-    stability: '',
-    speed: '',
+    stability: 1,
+    speed: 1,
     hasBulkheads: false,
     steering: '',
     description: '',
-    imageUrl: '',
-    image: null
+    imageUrl: ''
   });
   const [error, setError] = useState('');
-  const navigate = useNavigate();
-  const { id } = useParams();
+  const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:5005/kayaks/${id}`)
-      .then(response => {
-        const kayakData = response.data;
-        setFormData({
-          ownerType: kayakData.ownerType || '',
-          name: kayakData.name || '',
-          model: kayakData.model || '',
-          type: kayakData.type || '',
-          material: kayakData.material || '',
-          characteristics: kayakData.characteristics || '',
-          seats: kayakData.seats || '',
-          paddlerSize: kayakData.paddlerSize || '',
-          stability: kayakData.stability || '',
-          speed: kayakData.speed || '',
-          hasBulkheads: kayakData.hasBulkheads || false,
-          steering: kayakData.steering || '',
-          description: kayakData.description || '',
-          imageUrl: kayakData.imageUrl || '',
-          image: null
-        });
-      })
-      .catch(error => {
-        setError('Error fetching kayak data');
-      });
+    const fetchKayak = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5005/kayaks/${id}`);
+        setFormData(response.data);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchKayak();
   }, [id]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
+    setFormData(prevFormData => ({
+      ...prevFormData,
       [name]: type === 'checkbox' ? checked : value
     }));
   };
 
   const handleFileChange = (e) => {
-    setFormData(prevState => ({
-      ...prevState,
-      image: e.target.files[0]
-    }));
+    setImageFile(e.target.files[0]);
   };
 
   const handleCancelClick = () => {
     navigate(-1);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = new FormData();
-    for (const key in formData) {
-      data.append(key, formData[key]);
+
+    try {
+      let imageUrl = formData.imageUrl;
+
+      if (imageFile) {
+        const uploadData = new FormData();
+        uploadData.append('imageUrl', imageFile);
+        const uploadRes = await axios.post('http://localhost:5005/upload', uploadData);
+        imageUrl = uploadRes.data.fileUrl;
+      }
+
+      const kayakData = { ...formData, imageUrl };
+      await axios.put(`http://localhost:5005/kayaks/${id}`, kayakData);
+      navigate(`/kayaks/${id}`);
+    } catch (err) {
+      setError(err.message);
     }
-    axios.put(`http://localhost:5005/kayaks/${id}`, data)
-      .then(() => {
-        navigate('/kayaks');
-      })
-      .catch(error => {
-        setError('Error updating kayak');
-      });
   };
 
   return (
@@ -170,7 +159,9 @@ const EditKayakPage = () => {
               <option value="Plastic">Plastic</option>
               <option value="Fiberglass">Fiberglass</option>
               <option value="Wood">Wood</option>
-              <option value="Kevlar/Carbon Fibre Laminate">Kevlar/Carbon Fibre Laminate</option>
+              <option value="Kevlar/Carbon Fibre Laminate">
+                Kevlar/Carbon Fibre Laminate
+              </option>
               <option value="Other">Other</option>
             </select>
           </div>
@@ -284,7 +275,11 @@ const EditKayakPage = () => {
             <button type="submit" className="btn btn-outline btn-primary mx-2">
               Update Kayak
             </button>
-            <button className="btn btn-outline mx-2" onClick={handleCancelClick}>
+            <button
+              type="button"
+              className="btn btn-outline mx-2"
+              onClick={handleCancelClick}
+            >
               Cancel
             </button>
           </div>

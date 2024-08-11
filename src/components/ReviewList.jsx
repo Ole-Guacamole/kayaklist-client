@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../context/auth.context";
 import { ReviewContext } from "../context/review.context";
+import { useContext } from "react";
+import { ToastContainer } from "react-toastify";
 
-function ReviewList() {
+function ReviewList({ kayakId }) {
   const { user } = useContext(AuthContext);
   const { reviews, handleDelete } = useContext(ReviewContext);
 
@@ -12,19 +11,25 @@ function ReviewList() {
     return <div>Please log in to see reviews.</div>;
   }
 
-  // Sort reviews by createdAt in descending order
-  const sortedReviews = reviews
-    .slice()
+  console.log("Kayak ID:", kayakId);
+  console.log("All Reviews:", reviews);
+
+  // Filter reviews by kayakId and sort by createdAt in descending order
+  const filteredAndSortedReviews = reviews
+    .filter(review => review.kayak_id === kayakId)
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  console.log("Filtered Reviews:", filteredAndSortedReviews);
 
   return (
     <div>
+      <h3 className="text-xl">User Reviews: </h3>
       <ToastContainer key="toast-container" />
-      {sortedReviews && sortedReviews.length > 0 ? (
-        sortedReviews.map((review) => (
+      {filteredAndSortedReviews && filteredAndSortedReviews.length > 0 ? (
+        filteredAndSortedReviews.map((review) => (
           <div
             key={review._id}
-            className="p-4 m-4 bg-gray-100 rounded-lg border border-gray-300"
+            className="p-3 m-3 bg-gray-100 rounded-lg border border-gray-300"
           >
             <h3 className="font-semibold">Rating: {review.rating}</h3>
             <p>Review: {review.reviewContent}</p>
@@ -39,7 +44,7 @@ function ReviewList() {
           </div>
         ))
       ) : (
-        <p>No reviews available.</p>
+        <p>No reviews for this kayak yet.</p>
       )}
     </div>
   );

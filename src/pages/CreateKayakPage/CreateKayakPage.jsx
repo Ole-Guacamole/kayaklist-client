@@ -1,37 +1,37 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { AuthContext } from '../../context/auth.context';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from "react";
+import { AuthContext } from "../../context/auth.context";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const CreateKayakPage = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    ownerType: '',
-    name: '',
-    model: '',
-    type: '',
-    material: '',
-    characteristics: '',
+    ownerType: "", // Default value
+    name: "",
+    model: "",
+    type: "", // Default value
+    material: "", // Default value
+    characteristics: "",
     seats: 1,
-    paddlerSize: '',
+    paddlerSize: "", // Default value
     stability: 1,
     speed: 1,
     hasBulkheads: false,
-    steering: '',
-    description: '',
-    imageUrl: '',
-    user_id: ''
+    steering: "", // Default value
+    description: "",
+    imageUrl: "",
+    user_id: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [isUserLoaded, setIsUserLoaded] = useState(false);
 
   useEffect(() => {
     if (user) {
-      setFormData(prevFormData => ({
+      setFormData((prevFormData) => ({
         ...prevFormData,
-        user_id: user._id
+        user_id: user._id,
       }));
       setIsUserLoaded(true);
     }
@@ -39,30 +39,39 @@ const CreateKayakPage = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
+    //  console.log(`Updated ${name} to ${type === 'checkbox' ? checked : value}`);
   };
 
   const handleFileChange = (e) => {
     setImageFile(e.target.files[0]);
+    //console.log('Selected file:', e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const formDataToSend = new FormData();
-      for (const key in formData) {
-        formDataToSend.append(key, formData[key]);
-      }
+      let imageUrl = formData.imageUrl;
+
       if (imageFile) {
-        formDataToSend.append('image', imageFile);
+        const uploadData = new FormData();
+        uploadData.append("imageUrl", imageFile);
+        const uploadRes = await axios.post(
+          "http://localhost:5005/upload",
+          uploadData
+        );
+        imageUrl = uploadRes.data.fileUrl;
       }
-      await axios.post('/api/kayaks', formDataToSend);
-      navigate('/kayaks');
+
+      const kayakData = { ...formData, imageUrl };
+      await axios.post(`http://localhost:5005/kayaks/`, kayakData);
+      navigate(`/kayaks`);
     } catch (err) {
-      setError(err.response.data.message);
+      setError(err.message);
     }
   };
 
@@ -82,6 +91,9 @@ const CreateKayakPage = () => {
               onChange={handleChange}
               className="select select-bordered w-full"
             >
+              <option value="" disabled>
+                Pick one
+              </option>
               <option value="Club Boat">Club Boat</option>
               <option value="Private Boat">Private Boat</option>
             </select>
@@ -120,6 +132,9 @@ const CreateKayakPage = () => {
               onChange={handleChange}
               className="select select-bordered w-full"
             >
+              <option value="" disabled>
+                Pick one
+              </option>
               <option value="Touring Kayak">Touring Kayak</option>
               <option value="Sea Kayak">Sea Kayak</option>
               <option value="Racing Kayak">Racing Kayak</option>
@@ -148,10 +163,15 @@ const CreateKayakPage = () => {
               onChange={handleChange}
               className="select select-bordered w-full"
             >
+              <option value="" disabled>
+                Pick one
+              </option>
               <option value="Plastic">Plastic</option>
               <option value="Fiberglass">Fiberglass</option>
               <option value="Wood">Wood</option>
-              <option value="Kevlar/Carbon Fibre Laminate">Kevlar/Carbon Fibre Laminate</option>
+              <option value="Kevlar/Carbon Fibre Laminate">
+                Kevlar/Carbon Fibre Laminate
+              </option>
               <option value="Other">Other</option>
             </select>
           </div>
@@ -177,6 +197,9 @@ const CreateKayakPage = () => {
               onChange={handleChange}
               className="select select-bordered w-full"
             >
+              <option value="" disabled>
+                Pick one
+              </option>
               <option value="small">Small</option>
               <option value="medium">Medium</option>
               <option value="large">Large</option>
@@ -186,25 +209,56 @@ const CreateKayakPage = () => {
             <label className="label text-left w-full">
               <span>Stability</span>
             </label>
+
             <input
-              type="number"
+              type="range"
               name="stability"
+              min={1}
+              max={10}
               value={formData.stability}
               onChange={handleChange}
-              className="input input-bordered w-full"
+              className="range"
+              step="1"
             />
+            <div className="flex w-full justify-between px-2 text-xs">
+              <span>1</span>
+              <span>2</span>
+              <span>3</span>
+              <span>4</span>
+              <span>5</span>
+              <span>6</span>
+              <span>7</span>
+              <span>8</span>
+              <span>9</span>
+              <span>10</span>
+            </div>
           </div>
           <div className="form-control w-full">
             <label className="label text-left w-full">
               <span>Speed</span>
             </label>
             <input
-              type="number"
+              type="range"
               name="speed"
+              min={1}
+              max={10}
               value={formData.speed}
               onChange={handleChange}
-              className="input input-bordered w-full"
+              className="range"
+              step="1"
             />
+            <div className="flex w-full justify-between px-2 text-xs">
+              <span>1</span>
+              <span>2</span>
+              <span>3</span>
+              <span>4</span>
+              <span>5</span>
+              <span>6</span>
+              <span>7</span>
+              <span>8</span>
+              <span>9</span>
+              <span>10</span>
+            </div>
           </div>
           <div className="form-control w-full">
             <label className="label text-left w-full">
@@ -216,6 +270,9 @@ const CreateKayakPage = () => {
               onChange={handleChange}
               className="select select-bordered w-full"
             >
+              <option value="" disabled>
+                Pick one
+              </option>
               <option value="Skeg">Skeg</option>
               <option value="Rudder">Rudder</option>
               <option value="Skudder">Skudder</option>
