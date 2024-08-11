@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ReviewForm from "../../components/ReviewForm";
 import ReviewList from "../../components/ReviewList";
 
 const KayakDetailsPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [kayak, setKayak] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -32,6 +33,14 @@ const KayakDetailsPage = () => {
 
   const handleReviewSubmitted = () => {
     setShowReviewForm(false);
+  };
+
+  const handleBackClick = () => {
+    navigate(-1); // Navigate to the previous route
+  };
+
+  const handleEditClick = () => {
+    navigate(`/kayaks/${id}/edit`); // Navigate to the edit route
   };
 
   if (loading) return <p>Loading...</p>;
@@ -109,8 +118,14 @@ const KayakDetailsPage = () => {
 
       <div className="w-full mt-6">
         <div className="flex justify-center">
-          <button className="btn btn-outline" onClick={toggleReviewForm}>
+          <button className="btn btn-primary btn-outline mx-2" onClick={handleEditClick}>
+            Edit
+          </button>
+          <button className="btn btn-outline mx-2" onClick={toggleReviewForm}>
             {showReviewForm ? "Cancel" : "Add Review"}
+          </button>
+          <button className="btn btn-outline mx-2" onClick={handleBackClick}>
+          Back
           </button>
         </div>
 
