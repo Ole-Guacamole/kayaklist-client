@@ -17,6 +17,7 @@ const CreateKayakPage = () => {
     paddlerSize: "", // Default value
     stability: 1,
     speed: 1,
+    capacity: 1,
     hasBulkheads: false,
     steering: "", // Default value
     description: "",
@@ -221,16 +222,10 @@ const CreateKayakPage = () => {
               step="1"
             />
             <div className="flex w-full justify-between px-2 text-xs">
-              <span>1</span>
-              <span>2</span>
-              <span>3</span>
-              <span>4</span>
-              <span>5</span>
-              <span>6</span>
-              <span>7</span>
-              <span>8</span>
-              <span>9</span>
-              <span>10</span>
+              <span>Experts only</span>
+              <span>Advanced</span>
+              <span>Intermediate</span>
+              <span>Beginner</span>
             </div>
           </div>
           <div className="form-control w-full">
@@ -248,18 +243,36 @@ const CreateKayakPage = () => {
               step="1"
             />
             <div className="flex w-full justify-between px-2 text-xs">
-              <span>1</span>
-              <span>2</span>
-              <span>3</span>
-              <span>4</span>
-              <span>5</span>
-              <span>6</span>
-              <span>7</span>
-              <span>8</span>
-              <span>9</span>
-              <span>10</span>
+            <span>Leisure</span>
+              <span>Relaxed Touring</span>
+              <span>Fast Touring</span>
+              <span>Marathon</span>
+              <span>Racing</span>
             </div>
           </div>
+
+          <div className="form-control w-full">
+            <label className="label text-left w-full">
+              <span>Capacity suitable for:</span>
+            </label>
+              <input
+                type="range"
+                name="capacity"
+                min={0}
+                max="3"
+                value={formData.capacity}
+                onChange={handleChange}
+                className="range"
+                step="1"
+              />
+              <div className="flex w-full justify-between px-2 text-xs">
+                <span>Training</span>
+                <span>Day Trip</span>
+                <span>Multy-Day-Trip</span>
+                <span>One Week +</span>
+              </div>
+          </div>
+
           <div className="form-control w-full">
             <label className="label text-left w-full">
               <span>Steering</span>

@@ -91,43 +91,60 @@ const KayakDetailsPage = () => {
         </div>
         <div className="w-full  p-2">
           <p>
-            <strong>Stability:</strong> 
-            <input type="range" min={0} max="10" value={kayak.stability} className="range" step="1" />
-<div className="flex w-full justify-between px-2 text-xs">
-  <span>0</span>
-  <span>1</span>
-  <span>2</span>
-  <span>3</span>
-  <span>4</span>
-  <span>5</span>
-  <span>6</span>
-  <span>7</span>
-  <span>8</span>
-  <span>9</span>
-  <span>10</span>
-
-</div>
+            <strong>Stability suitable for:</strong>
+            <input
+              type="range"
+              min={0}
+              max="10"
+              value={kayak.stability}
+              className="range"
+              step="1"
+            />
+            <div className="flex w-full justify-between px-2 text-xs">
+              <span>Experts only</span>
+              <span>Advanced</span>
+              <span>Intermediate</span>
+              <span>Beginner</span>
+            </div>
           </p>
         </div>
         <div className="w-full p-2">
           <p>
-            <strong>Speed:</strong> 
-            <input type="range" min={0} max="10" value={kayak.speed} className="range" step="1" />
-<div className="flex w-full justify-between px-2 text-xs">
-  
-  <span>0</span>
-  <span>1</span>
-  <span>2</span>
-  <span>3</span>
-  <span>4</span>
-  <span>5</span>
-  <span>6</span>
-  <span>7</span>
-  <span>8</span>
-  <span>9</span>
-  <span>10</span>
-
-</div>
+            <strong>Speed suitable for:</strong>
+            <input
+              type="range"
+              min={0}
+              max="10"
+              value={kayak.speed}
+              className="range"
+              step="1"
+            />
+            <div className="flex w-full justify-between px-2 text-xs">
+              <span>Leisure</span>
+              <span>Relaxed Touring</span>
+              <span>Fast Touring</span>
+              <span>Marathon</span>
+              <span>Racing</span>
+            </div>
+          </p>
+        </div>
+        <div className="w-full p-2">
+          <p>
+            <strong>Capacity is suitable for:</strong>
+            <input
+              type="range"
+              min={0}
+              max="3"
+              value={kayak.capacity}
+              className="range"
+              step="1"
+            />
+            <div className="flex w-full justify-between px-2 text-xs">
+              <span>Training only</span>
+              <span>Day Trip</span>
+              <span>Multy Day Trip</span>
+              <span>One Week + Trip</span>
+            </div>
           </p>
         </div>
         <div className="w-full p-2">
@@ -149,14 +166,17 @@ const KayakDetailsPage = () => {
 
       <div className="w-full mt-6">
         <div className="flex justify-center">
-          <button className="btn btn-primary btn-outline mx-2" onClick={handleEditClick}>
+          <button
+            className="btn btn-primary btn-outline mx-2"
+            onClick={handleEditClick}
+          >
             Edit
           </button>
           <button className="btn btn-outline mx-2" onClick={toggleReviewForm}>
             {showReviewForm ? "Cancel" : "Add Review"}
           </button>
           <button className="btn btn-outline mx-2" onClick={handleBackClick}>
-          Back
+            Back
           </button>
         </div>
 

@@ -1,27 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditKayakPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    ownerType: '',
-    name: '',
-    model: '',
-    type: '',
-    material: '',
-    characteristics: '',
+    ownerType: "",
+    name: "",
+    model: "",
+    type: "",
+    material: "",
+    characteristics: "",
     seats: 1,
-    paddlerSize: '',
+    paddlerSize: "",
     stability: 1,
     speed: 1,
+    capacity: 0,
     hasBulkheads: false,
-    steering: '',
-    description: '',
-    imageUrl: ''
+    steering: "",
+    description: "",
+    imageUrl: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
@@ -39,9 +40,9 @@ const EditKayakPage = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -61,8 +62,11 @@ const EditKayakPage = () => {
 
       if (imageFile) {
         const uploadData = new FormData();
-        uploadData.append('imageUrl', imageFile);
-        const uploadRes = await axios.post('http://localhost:5005/upload', uploadData);
+        uploadData.append("imageUrl", imageFile);
+        const uploadRes = await axios.post(
+          "http://localhost:5005/upload",
+          uploadData
+        );
         imageUrl = uploadRes.data.fileUrl;
       }
 
@@ -196,25 +200,66 @@ const EditKayakPage = () => {
             <label className="label text-left w-full">
               <span>Stability</span>
             </label>
+
             <input
-              type="number"
+              type="range"
               name="stability"
+              min={1}
+              max={10}
               value={formData.stability}
               onChange={handleChange}
-              className="input input-bordered w-full"
+              className="range"
+              step="1"
             />
+            <div className="flex w-full justify-between px-2 text-xs">
+              <span>Experts only</span>
+              <span>Advanced</span>
+              <span>Intermediate</span>
+              <span>Beginner</span>
+            </div>
           </div>
           <div className="form-control w-full">
             <label className="label text-left w-full">
               <span>Speed</span>
             </label>
             <input
-              type="number"
+              type="range"
               name="speed"
+              min={1}
+              max={10}
               value={formData.speed}
               onChange={handleChange}
-              className="input input-bordered w-full"
+              className="range"
+              step="1"
             />
+            <div className="flex w-full justify-between px-2 text-xs">
+              <span>Leisure</span>
+              <span>Relaxed Touring</span>
+              <span>Fast Touring</span>
+              <span>Marathon</span>
+              <span>Racing</span>
+            </div>
+          </div>
+          <div className="form-control w-full">
+            <label className="label text-left w-full">
+              <span>Capacity suitable for:</span>
+            </label>
+            <input
+              type="range"
+              name="capacity"
+              min={0}
+              max="3"
+              value={formData.capacity}
+              onChange={handleChange}
+              className="range"
+              step="1"
+            />
+            <div className="flex w-full justify-between px-2 text-xs">
+              <span>Training</span>
+              <span>Day Trip</span>
+              <span>Multy-Day-Trip</span>
+              <span>One Week +</span>
+            </div>
           </div>
           <div className="form-control w-full">
             <label className="label text-left w-full">

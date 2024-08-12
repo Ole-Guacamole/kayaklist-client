@@ -1,104 +1,209 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-function KayakRecoPage() {
+const KayakRecommendationPage = () => {
   const [formData, setFormData] = useState({
-    skillLevel: "",
-    suitableForLargerPersons: false,
-    waterType: "",
+    stability: 8,
+    speed: 0,
+    type: [],
+    capacity: 0,
   });
-  const [filteredKayaks, setFilteredKayaks] = useState([]);
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+  const [kayaks, setKayaks] = useState([]);
+  const [filteredKayaks, setFilteredKayaks] = useState([]);
+  const [showRecommendations, setShowRecommendations] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    // Fetch kayaks from the API
+    axios
+      .get(`${import.meta.env.VITE_SERVER_URL}/kayaks`)
+      .then((response) => {
+        console.log("API response:", response.data); // Debugging log
+        setKayaks(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching kayaks:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    // Filter kayaks based on formData
+    const reversedStability = 10 - formData.stability;
+    const filtered = kayaks.filter((kayak) => {
+      const isWildwater = formData.type.includes("Wildwater Kayak");
+      return (
+        kayak.stability >= reversedStability &&
+        (isWildwater || kayak.speed >= formData.speed) &&
+        formData.type.includes(kayak.type) &&
+        kayak.capacity >= formData.capacity
+      );
+    });
+    console.log("Filtered kayaks:", filtered); // Debugging log
+    setFilteredKayaks(filtered);
+  }, [formData, kayaks]);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    if (name === "type") {
+      let types;
+      if (value === "Touring Kayak") {
+        types = ["Touring Kayak", "Sea Kayak"];
+      } else {
+        types = [value];
+      }
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: types,
+      }));
+    } else {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: parseInt(value, 10),
+      }));
+    }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.get("http://localhost:5005/kayaks", {
-        params: {
-          skillLevel: formData.skillLevel,
-          suitableForLargerPersons: formData.suitableForLargerPersons,
-          waterType: formData.waterType,
-        },
-      });
-      setFilteredKayaks(response.data);
-    } catch (error) {
-      console.error("Error fetching filtered kayaks:", error);
+  const handleGetRecommendations = () => {
+    if (formData.type.length === 0) {
+      setErrorMessage("Please choose where you want to kayak to get recommendations.");
+    } else {
+      setErrorMessage("");
+      setShowRecommendations(true);
     }
   };
 
   return (
-    <div>
-      <h1>Kayak Reco Page</h1>
-      <p>This is the Kayak Reco Page</p>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Skill Level:
-          <select
-            name="skillLevel"
-            value={formData.skillLevel}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Skill Level</option>
-            <option value="beginner">Beginner</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
-          </select>
-        </label>
-        <br />
-        <label>
-          Suitable for Larger Persons:
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Kayak Recommendation</h1>
+      <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="form-control w-full">
+          <label className="label text-left w-full">
+            <span>How experienced are you?</span>
+          </label>
           <input
-            type="checkbox"
-            name="suitableForLargerPersons"
-            checked={formData.suitableForLargerPersons}
+            type="range"
+            name="stability"
+            min={2}
+            max={10}
+            value={formData.stability}
             onChange={handleChange}
+            className="range"
+            step="1"
           />
-        </label>
-        <br />
-        <label>
-          Water Type:
-          <select
-            name="waterType"
-            value={formData.waterType}
+          <div className="flex w-full justify-between px-2 text-xs">
+            <span>Beginner</span>
+            <span>Intermediate</span>
+            <span>Advanced</span>
+            <span>Expert</span>
+          </div>
+        </div>
+
+        <div className="form-control w-full">
+          <label className="label text-left w-full">
+            <span>What kind of paddling do you want to do?</span>
+          </label>
+          <input
+            type="range"
+            name="speed"
+            min={1}
+            max={9}
+            value={formData.speed}
             onChange={handleChange}
-            required
+            className="range"
+            step="1"
+          />
+          <div className="flex w-full justify-between px-2 text-xs">
+            <span>Leisure</span>
+            <span>Relaxed Touring</span>
+            <span>Fast Touring</span>
+            <span>Marathon</span>
+            <span>Racing</span>
+          </div>
+        </div>
+
+        <div className="form-control w-full">
+          <label className="label text-left w-full">
+            <span>Where do you want to go?</span>
+          </label>
+          <select
+            name="type"
+            value={formData.type}
+            onChange={handleChange}
+            className="select select-bordered w-full"
           >
-            <option value="">Select Water Type</option>
-            <option value="flat">Flat Water</option>
-            <option value="sea">Sea</option>
-            <option value="wildwater">Wildwater</option>
+            <option value="" disabled>
+              Pick one
+            </option>
+            <option value="Touring Kayak">Flat water</option>
+            <option value="Sea Kayak">Sea</option>
+            <option value="Wildwater Kayak">Wild Water</option>
           </select>
-        </label>
-        <br />
-        <button type="submit">Get Recommendations</button>
+        </div>
+
+        <div className="form-control w-full">
+          <label className="label text-left w-full">
+            <span>For how long do you want to go:</span>
+          </label>
+          <input
+            type="range"
+            name="capacity"
+            min={0}
+            max="3"
+            value={formData.capacity}
+            onChange={handleChange}
+            className="range"
+            step="1"
+          />
+          <div className="flex w-full justify-between px-2 text-xs">
+            <span>Some Hours</span>
+            <span>Day Trip</span>
+            <span>Multy-Day-Trip</span>
+            <span>One Week +</span>
+          </div>
+        </div>
       </form>
-      <div>
-        <h2>Recommended Kayaks</h2>
-        <ul>
-          {filteredKayaks.map((kayak) => (
-            <li key={kayak._id}>
-              <h3>{kayak.name}</h3>
-              <p>{kayak.description}</p>
-              <p>Skill Level: {kayak.skillLevel}</p>
-              <p>
-                Suitable for Larger Persons:{" "}
-                {kayak.suitableForLargerPersons ? "Yes" : "No"}
-              </p>
-              <p>Where are you planning to paddle?: {kayak.waterType}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
+
+      <div className="flex flex-col items-center mt-4">
+      <button onClick={handleGetRecommendations} className="btn btn-primary">
+        Get Recommendations
+      </button>
+      {errorMessage && (
+        <p className="text-red-500 mt-2 text-center">{errorMessage}</p>
+      )}
+    </div>
+
+      {showRecommendations && (
+        <>
+          <h2>Recommended Kayaks</h2>
+          <ul className="flex flex-wrap">
+            {filteredKayaks.length > 0 ? (
+              filteredKayaks.map((kayak) => (
+                <li key={kayak._id} className="w-full md:w-1/2 lg:w-1/3 p-2">
+                  <Link to={`/kayaks/${kayak._id}`}>
+                    <div className="border p-4 rounded-lg">
+                      <img
+                        src={kayak.imageUrl}
+                        alt={kayak.name}
+                        className="max-w-xl w-full h-auto"
+                      />
+                      <h3 className="text-xl font-bold">{kayak.name}</h3>
+                      <p className="mb-4">{kayak.characteristics}</p>
+                    </div>
+                  </Link>
+                </li>
+              ))
+            ) : (
+              <li>No kayaks match your criteria.</li>
+            )}
+          </ul>
+        </>
+      )}
     </div>
   );
-}
+};
 
-export default KayakRecoPage;
+export default KayakRecommendationPage;
