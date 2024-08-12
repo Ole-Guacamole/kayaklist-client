@@ -48,7 +48,7 @@ const KayakDetailsPage = () => {
 
   return (
     <div className="mx-auto p-4">
-      <div className="rounded-box bg-neutral/50 max-w-xl p-6">
+      <div className="rounded-box bg-base-200 max-w-xl p-6">
         <h2 className="text-2xl font-bold mb-4">{kayak.name}</h2>
         {kayak.imageUrl && (
           <img
@@ -91,12 +91,43 @@ const KayakDetailsPage = () => {
         </div>
         <div className="w-full  p-2">
           <p>
-            <strong>Stability:</strong> {kayak.stability}
+            <strong>Stability:</strong> 
+            <input type="range" min={0} max="10" value={kayak.stability} className="range" step="1" />
+<div className="flex w-full justify-between px-2 text-xs">
+  <span>0</span>
+  <span>1</span>
+  <span>2</span>
+  <span>3</span>
+  <span>4</span>
+  <span>5</span>
+  <span>6</span>
+  <span>7</span>
+  <span>8</span>
+  <span>9</span>
+  <span>10</span>
+
+</div>
           </p>
         </div>
         <div className="w-full p-2">
           <p>
-            <strong>Speed:</strong> {kayak.speed}
+            <strong>Speed:</strong> 
+            <input type="range" min={0} max="10" value={kayak.speed} className="range" step="1" />
+<div className="flex w-full justify-between px-2 text-xs">
+  
+  <span>0</span>
+  <span>1</span>
+  <span>2</span>
+  <span>3</span>
+  <span>4</span>
+  <span>5</span>
+  <span>6</span>
+  <span>7</span>
+  <span>8</span>
+  <span>9</span>
+  <span>10</span>
+
+</div>
           </p>
         </div>
         <div className="w-full p-2">

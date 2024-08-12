@@ -3,8 +3,7 @@ import PrivateKayaksList from "../../components/PrivateKayaksList.jsx";
 
 function KayakListPage() {
   return (
-    <div>
-      <h1>Home page</h1>
+    <div className="w-full p-4 m-4">
       <ClubKayaksList />
       <PrivateKayaksList />
     </div>

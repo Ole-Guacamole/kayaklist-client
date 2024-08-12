@@ -20,6 +20,7 @@ function App() {
     <div className="App flex flex-col items-center justify-center min-h-screen">
       <Navbar />
 
+
       <Routes>
         <Route path="/" element={<HomePage />} />
 

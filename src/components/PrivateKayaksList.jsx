@@ -33,8 +33,11 @@ const PrivateKayaksList = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
+    
     <div>
-      <h2>Private Kayaks</h2>
+      <div className="divider">Private Kayaks</div>
+      <div className="border p-4 rounded-lg bg-base-200 p-2 flex w-full flex-col border-opacity-50 ">
+      
       <ul className="flex flex-wrap">
         {kayaks.map((kayak) => (
           <li key={kayak._id} className="w-full md:w-1/2 lg:w-1/3 p-2">
@@ -43,7 +46,7 @@ const PrivateKayaksList = () => {
               <img
                 src={kayak.imageUrl}
                 alt={kayak.name}
-                className="max-w-xl w-full h-auto"
+                className="max-w-xl w-full h-auto "
               />
               <h3 className="text-xl font-bold">{kayak.name}</h3>
               <p className="mb-4">{kayak.characteristics}</p>
@@ -52,6 +55,7 @@ const PrivateKayaksList = () => {
           </li>
         ))}
       </ul>
+    </div>
     </div>
   );
 };
