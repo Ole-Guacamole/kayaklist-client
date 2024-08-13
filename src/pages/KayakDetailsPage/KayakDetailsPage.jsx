@@ -89,7 +89,7 @@ const KayakDetailsPage = () => {
             <strong>Paddler Size:</strong> {kayak.paddlerSize}
           </p>
         </div>
-        <div className="w-full  p-2">
+        <div className="w-full p-2">
           <p>
             <strong>Stability suitable for:</strong>
             <input
@@ -123,8 +123,6 @@ const KayakDetailsPage = () => {
               <span>Leisure</span>
               <span>Relaxed Touring</span>
               <span>Fast Touring</span>
-              <span>Marathon</span>
-              <span>Racing</span>
             </div>
           </p>
         </div>
@@ -151,6 +149,13 @@ const KayakDetailsPage = () => {
           <p>
             <strong>Has Bulkheads:</strong> {kayak.hasBulkheads ? "Yes" : "No"}
           </p>
+          {!kayak.hasBulkheads && (
+            <div className="alert alert-warning mt-2">
+              <p>
+                <strong>Warning:</strong> This Kayak has no bulkheads, always ensure that buoyancy bags are in place and filled with air before paddling.
+              </p>
+            </div>
+          )}
         </div>
         <div className="w-full  p-2">
           <p>
@@ -162,6 +167,13 @@ const KayakDetailsPage = () => {
             <strong>Description:</strong> {kayak.description}
           </p>
         </div>
+        {kayak.ownerType === "Private Boat" && kayak.user_id && (
+          <div className="w-full p-2">
+            <p>
+              <strong>Contact:</strong> This is a private Kayak. If you want to test it you can contact the owner, {kayak.user_id.name}, under the email: {kayak.user_id.email} or by phone under the number: {kayak.user_id.phone}
+            </p>
+          </div>
+        )}
       </div>
 
       <div className="w-full mt-6">

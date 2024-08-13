@@ -36,13 +36,14 @@ const PrivateKayaksList = () => {
     
     <div>
       <div className="divider">Private Kayaks</div>
+      <p  className="text-center my-4">Members willing to offer their private kayaks for testing purposes to other members, can add their boats here.</p>
       <div className="border p-4 rounded-lg bg-base-200 p-2 flex w-full flex-col border-opacity-50 ">
       
       <ul className="flex flex-wrap">
         {kayaks.map((kayak) => (
           <li key={kayak._id} className="w-full md:w-1/2 lg:w-1/3 p-2">
             <Link to={`/kayaks/${kayak._id}`}>
-            <div className="border p-4 rounded-lg">
+            <div className="border p-4 rounded-lg border-neutral">
               <img
                 src={kayak.imageUrl}
                 alt={kayak.name}

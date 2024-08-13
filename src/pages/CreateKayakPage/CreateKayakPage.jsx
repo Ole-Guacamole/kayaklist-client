@@ -44,7 +44,7 @@ const CreateKayakPage = () => {
       ...prevFormData,
       [name]: type === "checkbox" ? checked : value,
     }));
-    //  console.log(`Updated ${name} to ${type === 'checkbox' ? checked : value}`);
+    console.log(`Updated ${name} to ${type === 'checkbox' ? checked : value}`);
   };
 
   const handleFileChange = (e) => {
@@ -69,6 +69,7 @@ const CreateKayakPage = () => {
       }
 
       const kayakData = { ...formData, imageUrl };
+      console.log("Kayak data:", kayakData);
       await axios.post(`http://localhost:5005/kayaks/`, kayakData);
       navigate(`/kayaks`);
     } catch (err) {
@@ -259,7 +260,7 @@ const CreateKayakPage = () => {
                 type="range"
                 name="capacity"
                 min={0}
-                max="3"
+                max={3}
                 value={formData.capacity}
                 onChange={handleChange}
                 className="range"
