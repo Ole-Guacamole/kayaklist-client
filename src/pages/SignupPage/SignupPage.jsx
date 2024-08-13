@@ -48,7 +48,7 @@ function SignupPage() {
 
   return (
     <div className="SignupPage flex flex-col items-center justify-center min-h-screen space-y-4">
-      <h1 className="text-2xl font-bold mb-4">Sign Up</h1>
+      <h1 className="text-2xl font-bold mb-4">Create new user</h1>
 
       <form
         onSubmit={handleSignupSubmit}
@@ -130,6 +130,7 @@ function SignupPage() {
             type="password"
             className="grow"
             name="password"
+            placeholder="Password"
             value={password}
             onChange={handlePassword}
           />
@@ -138,13 +139,13 @@ function SignupPage() {
         {/* <label>Name:</label>
         <input type="text" name="name" value={name} onChange={handleName} /> */}
 
-        <button type="submit" className="btn btn-outline btn-primary">Sign Up</button>
+        <button type="submit" className="btn btn-outline btn-primary">Create user</button>
       </form>
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-      <p>Already have account?</p>
-      <Link className="btn btn-sm btn-outline btn-neutral" to={"/login"}> Login</Link>
+      {/* <p>Already have account?</p>
+      <Link className="btn btn-sm btn-outline btn-neutral" to={"/login"}> Login</Link> */}
     </div>
   );
 }

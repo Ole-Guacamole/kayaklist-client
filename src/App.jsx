@@ -14,6 +14,7 @@ import KayakRecoPage from "./pages/KayakRecoPage/KayakRecoPage";
 import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
+import IsAdminOnly from "./components/IsAdminOnly/IsAdminOnly";
 
 function App() {
   return (
@@ -36,9 +37,9 @@ function App() {
         <Route
           path="/signup"
           element={
-            <IsAnon>
+            <IsAdminOnly>
               <SignupPage />
-            </IsAnon>
+            </IsAdminOnly>
           }
         />
         <Route
@@ -50,15 +51,15 @@ function App() {
           }
         />
 
-        <Route path="/kayaks/:id" element={<KayakDetailsPage />} />
+        <Route path="/kayaks/:id" element={<IsPrivate><KayakDetailsPage /></IsPrivate>} />
 
-        <Route path="/kayaks/" element={<KayakListPage />} />
+        <Route path="/kayaks/" element={<IsPrivate><KayakListPage /></IsPrivate>} />
 
-        <Route path="/kayaks/reco" element={<KayakRecoPage />} />
+        <Route path="/kayaks/reco" element={<IsPrivate><KayakRecoPage /></IsPrivate>} />
 
-        <Route path="/create-new-kayak" element={<CreateKayakPage />} />
+        <Route path="/create-new-kayak" element={<IsPrivate><CreateKayakPage /></IsPrivate>} />
 
-        <Route path="/kayaks/:id/edit" element={<EditKayakPage />} />
+        <Route path="/kayaks/:id/edit" element={<IsPrivate><EditKayakPage /></IsPrivate>} />
       </Routes>
     </div>
   );

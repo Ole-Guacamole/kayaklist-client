@@ -7,7 +7,7 @@ import logo from "../../assets/images/logo.png";
 function Navbar() {
   // Subscribe to the AuthContext to gain access to
   // the values from AuthContext.Provider's `value` prop
-  const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
+  const { isLoggedIn,isAdmin, user, logOutUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   // State to manage dropdown visibility
@@ -59,15 +59,19 @@ function Navbar() {
                 <li>
                   <Link to="/" onClick={closeDropdown} className="hover:bg-gray-700 hover:text-white">Home</Link>
                 </li>
-                <li>
-                  <Link to="/kayaks" onClick={closeDropdown} className="hover:bg-gray-700 hover:text-white">Kayak Catalogue</Link>
-                </li>
-                <li>
-                  <Link to="/kayaks/reco" onClick={closeDropdown} className="hover:bg-gray-700 hover:text-white">Kayak Recommendation</Link>
-                </li>
-                <li>
-                  <Link to="/create-new-kayak" onClick={closeDropdown} className="hover:bg-gray-700 hover:text-white">Create New Kayak</Link>
-                </li>
+                {isLoggedIn && (
+                  <>
+                    <li>
+                      <Link to="/kayaks" onClick={closeDropdown} className="hover:bg-gray-700 hover:text-white">Kayak Catalogue</Link>
+                    </li>
+                    <li>
+                      <Link to="/kayaks/reco" onClick={closeDropdown} className="hover:bg-gray-700 hover:text-white">Kayak Recommendation</Link>
+                    </li>
+                    <li>
+                      <Link to="/create-new-kayak" onClick={closeDropdown} className="hover:bg-gray-700 hover:text-white">Create New Kayak</Link>
+                    </li>
+                  </>
+                )}
                 <li>
                   <Link to="/about" onClick={closeDropdown} className="hover:bg-gray-700 hover:text-white">About</Link>
                 </li>
@@ -107,9 +111,6 @@ function Navbar() {
                 {!isLoggedIn && (
                   <>
                     <li>
-                      <Link to="/signup" onClick={closeDropdown} className="hover:bg-gray-700 hover:text-white">Signup</Link>
-                    </li>
-                    <li>
                       <Link to="/login" onClick={closeDropdown} className="hover:bg-gray-700 hover:text-white">Login</Link>
                     </li>
                   </>
@@ -121,6 +122,13 @@ function Navbar() {
                     </li>
                     <li>
                       <button onClick={handleLogout} className="hover:bg-gray-700 hover:text-white">Logout</button>
+                    </li>
+                  </>
+                )}
+                {isAdmin && isLoggedIn && (
+                  <>
+                    <li>
+                      <Link to="/signup" onClick={closeDropdown} className="hover:bg-gray-700 hover:text-white">Create New User</Link>
                     </li>
                   </>
                 )}
