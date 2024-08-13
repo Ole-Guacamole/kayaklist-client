@@ -94,8 +94,8 @@ function Navbar() {
             >
               <div className="w-10 rounded-full">
                 <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  alt="User Menu Icon"
+                  src="https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png"
                 />
               </div>
             </div>

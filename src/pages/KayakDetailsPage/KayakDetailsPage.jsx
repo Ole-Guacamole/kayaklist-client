@@ -74,11 +74,18 @@ const KayakDetailsPage = () => {
             <strong>Type:</strong> {kayak.type}
           </p>
         </div>
-        <div className="w-full  p-2">
-          <p>
-            <strong>Material:</strong> {kayak.material}
-          </p>
-        </div>
+        <div className="w-full p-2">
+        <p>
+          <strong>Material:</strong> {kayak.material}
+        </p>
+        {(kayak.material === "Wood" || kayak.material === "Kevlar/Carbon Fibre Laminate") && (
+          <div className="alert alert-warning mt-2">
+            <p>
+              <strong>Warning:</strong> This kayak is made of a delicate material. Please treat it with special care. You shouldn't land it directly on beaches but get out beforehand. You should also store it on stands if possible and not place it directly on hard floors such as concrete.
+            </p>
+          </div>
+        )}
+      </div>
         <div className="w-full p-2">
           <p>
             <strong>Seats:</strong> {kayak.seats}

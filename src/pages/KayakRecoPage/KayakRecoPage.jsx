@@ -50,7 +50,7 @@ const KayakRecommendationPage = () => {
     if (name === "type") {
       let types;
       if (value === "Touring Kayak") {
-        types = ["Touring Kayak", "Sea Kayak"];
+        types = ["Touring Kayak", "Sea Kayak", "Racing Kayak", "Wildwater Kayak"];
       } else {
         types = [value];
       }
