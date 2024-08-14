@@ -8,13 +8,13 @@ const KayakRecommendationPage = () => {
     speed: 0,
     type: [],
     capacity: 0,
+    seats: 1,
   });
 
   const [kayaks, setKayaks] = useState([]);
   const [filteredKayaks, setFilteredKayaks] = useState([]);
   const [showRecommendations, setShowRecommendations] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [isSolo, setIsSolo] = useState(true); // State to manage toggle
 
   useEffect(() => {
     // Fetch kayaks from the API
@@ -38,13 +38,13 @@ const KayakRecommendationPage = () => {
         kayak.stability >= reversedStability &&
         (isWildwater || kayak.speed >= formData.speed) &&
         formData.type.includes(kayak.type) &&
-        kayak.capacity >= formData.capacity
-        (isSolo ? kayak.seats === 1 : kayak.seats === 2) // Filter based on solo/tandem
+        kayak.capacity >= formData.capacity &&
+        kayak.seats === formData.seats // Filter based on solo/tandem
       );
     });
     console.log("Filtered kayaks:", filtered); // Debugging log
     setFilteredKayaks(filtered);
-  }, [formData, kayaks, isSolo]);
+  }, [formData, kayaks]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -52,7 +52,12 @@ const KayakRecommendationPage = () => {
     if (name === "type") {
       let types;
       if (value === "Touring Kayak") {
-        types = ["Touring Kayak", "Sea Kayak", "Racing Kayak", "Wildwater Kayak"];
+        types = [
+          "Touring Kayak",
+          "Sea Kayak",
+          "Racing Kayak",
+          "Wildwater Kayak",
+        ];
       } else {
         types = [value];
       }
@@ -71,7 +76,9 @@ const KayakRecommendationPage = () => {
 
   const handleGetRecommendations = () => {
     if (formData.type.length === 0) {
-      setErrorMessage("Please choose where you want to kayak to get recommendations.");
+      setErrorMessage(
+        "Please choose where you want to kayak to get recommendations."
+      );
     } else {
       setErrorMessage("");
       setShowRecommendations(true);
@@ -103,13 +110,20 @@ const KayakRecommendationPage = () => {
           </div>
           <div className="form-control flex-1">
             <label className="label text-left w-full">
-              <span>Do you have company?</span>
+              <span>Are you going alone?</span>
             </label>
-            <label className="cursor-pointer label flex items-center">
-              <span className="label-text mr-2">Solo</span>
-              <input type="checkbox" className="toggle toggle-lg toggle-primary" checked={!isSolo} onChange={() => setIsSolo(!isSolo)} />
-              <span className="label-text ml-2">Tandem</span>
-            </label>
+            <select
+              name="seats"
+              value={formData.seats}
+              onChange={handleChange}
+              className="select select-bordered w-full"
+            >
+              <option value="" disabled>
+                Choose
+              </option>
+              <option value={1}>Solo</option>
+              <option value={2}>Tandem</option>
+            </select>
           </div>
         </div>
 
@@ -127,7 +141,7 @@ const KayakRecommendationPage = () => {
             className="range"
             step="1"
           />
-          <div className="flex w-full justify-between px-2 text-xs">
+          <div className="flex w-full justify-between px-2 text-xs sm:text-sm">
             <span>Beginner</span>
             <span>Intermediate</span>
             <span>Advanced</span>
@@ -149,7 +163,7 @@ const KayakRecommendationPage = () => {
             className="range"
             step="1"
           />
-          <div className="flex w-full justify-between px-2 text-xs">
+          <div className="flex w-full justify-between px-2 text-xs sm:text-sm">
             <span>Leisure</span>
             <span>Relaxed Touring</span>
             <span>Fast Touring</span>
@@ -157,8 +171,6 @@ const KayakRecommendationPage = () => {
             <span>Racing</span>
           </div>
         </div>
-
-        
 
         <div className="form-control w-full">
           <label className="label text-left w-full">
@@ -174,7 +186,7 @@ const KayakRecommendationPage = () => {
             className="range"
             step="1"
           />
-          <div className="flex w-full justify-between px-2 text-xs">
+          <div className="flex w-full justify-between px-2 text-xs sm:text-sm">
             <span>Some Hours</span>
             <span>Day Trip</span>
             <span>Multy-Day-Trip</span>
@@ -184,13 +196,13 @@ const KayakRecommendationPage = () => {
       </form>
 
       <div className="flex flex-col items-center mt-4">
-      <button onClick={handleGetRecommendations} className="btn btn-primary">
-        Get Recommendations
-      </button>
-      {errorMessage && (
-        <p className="text-red-500 mt-2 text-center">{errorMessage}</p>
-      )}
-    </div>
+        <button onClick={handleGetRecommendations} className="btn btn-primary">
+          Get Recommendations
+        </button>
+        {errorMessage && (
+          <p className="text-red-500 mt-2 text-center">{errorMessage}</p>
+        )}
+      </div>
 
       {showRecommendations && (
         <>
