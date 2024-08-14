@@ -96,15 +96,14 @@ function SignupPage() {
         <label className="input input-bordered flex items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
+            viewBox="0 0 24 24"
             fill="currentColor"
             className="h-4 w-4 opacity-70"
           >
-            <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
-            <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
+            <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.27 11.36 11.36 0 004.25.81 1 1 0 011 1v3.5a1 1 0 01-1 1A19.93 19.93 0 012 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.81 4.25 1 1 0 01-.27 1.11l-2.2 2.2z" />
           </svg>
           <input
-            type="phone"
+            type="tel"
             name="phone"
             className="grow"
             placeholder="Phone"
@@ -139,7 +138,9 @@ function SignupPage() {
         {/* <label>Name:</label>
         <input type="text" name="name" value={name} onChange={handleName} /> */}
 
-        <button type="submit" className="btn btn-outline btn-primary">Create user</button>
+        <button type="submit" className="btn btn-outline btn-primary">
+          Create user
+        </button>
       </form>
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}

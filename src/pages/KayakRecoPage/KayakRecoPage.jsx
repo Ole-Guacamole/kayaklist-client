@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const KayakRecommendationPage = () => {
   const [formData, setFormData] = useState({
-    stability: 8,
+    stability: 2,
     speed: 0,
     type: [],
     capacity: 0,
@@ -14,6 +14,7 @@ const KayakRecommendationPage = () => {
   const [filteredKayaks, setFilteredKayaks] = useState([]);
   const [showRecommendations, setShowRecommendations] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isSolo, setIsSolo] = useState(true); // State to manage toggle
 
   useEffect(() => {
     // Fetch kayaks from the API
@@ -38,11 +39,12 @@ const KayakRecommendationPage = () => {
         (isWildwater || kayak.speed >= formData.speed) &&
         formData.type.includes(kayak.type) &&
         kayak.capacity >= formData.capacity
+        (isSolo ? kayak.seats === 1 : kayak.seats === 2) // Filter based on solo/tandem
       );
     });
     console.log("Filtered kayaks:", filtered); // Debugging log
     setFilteredKayaks(filtered);
-  }, [formData, kayaks]);
+  }, [formData, kayaks, isSolo]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -80,6 +82,37 @@ const KayakRecommendationPage = () => {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Kayak Recommendation</h1>
       <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="flex gap-4">
+          <div className="form-control flex-1">
+            <label className="label text-left w-full">
+              <span>Where do you want to go?</span>
+            </label>
+            <select
+              name="type"
+              value={formData.type}
+              onChange={handleChange}
+              className="select select-bordered w-full"
+            >
+              <option value="" disabled>
+                Choose
+              </option>
+              <option value="Touring Kayak">Flat water</option>
+              <option value="Sea Kayak">Sea</option>
+              <option value="Wildwater Kayak">Wild Water</option>
+            </select>
+          </div>
+          <div className="form-control flex-1">
+            <label className="label text-left w-full">
+              <span>Do you have company?</span>
+            </label>
+            <label className="cursor-pointer label flex items-center">
+              <span className="label-text mr-2">Solo</span>
+              <input type="checkbox" className="toggle toggle-lg toggle-primary" checked={!isSolo} onChange={() => setIsSolo(!isSolo)} />
+              <span className="label-text ml-2">Tandem</span>
+            </label>
+          </div>
+        </div>
+
         <div className="form-control w-full">
           <label className="label text-left w-full">
             <span>How experienced are you?</span>
@@ -87,7 +120,7 @@ const KayakRecommendationPage = () => {
           <input
             type="range"
             name="stability"
-            min={2}
+            min={0}
             max={10}
             value={formData.stability}
             onChange={handleChange}
@@ -125,24 +158,7 @@ const KayakRecommendationPage = () => {
           </div>
         </div>
 
-        <div className="form-control w-full">
-          <label className="label text-left w-full">
-            <span>Where do you want to go?</span>
-          </label>
-          <select
-            name="type"
-            value={formData.type}
-            onChange={handleChange}
-            className="select select-bordered w-full"
-          >
-            <option value="" disabled>
-              Pick one
-            </option>
-            <option value="Touring Kayak">Flat water</option>
-            <option value="Sea Kayak">Sea</option>
-            <option value="Wildwater Kayak">Wild Water</option>
-          </select>
-        </div>
+        
 
         <div className="form-control w-full">
           <label className="label text-left w-full">

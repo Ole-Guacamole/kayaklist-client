@@ -7,6 +7,10 @@ const PrivateKayaksList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const handleAddNewKayak = () => {
+    navigate('/add-new-kayak'); // Adjust the path as needed
+  };
+
   useEffect(() => {
     const fetchKayaks = async () => {
       try {
@@ -56,7 +60,14 @@ const PrivateKayaksList = () => {
           </li>
         ))}
       </ul>
+      <div className="w-full mt-6">
+        <div className="flex justify-center">
+    
+    <button className="btn btn-outline mx-2" onClick={handleAddNewKayak}>
+          Add New Kayak
+        </button>
     </div>
+    </div></div>
     </div>
   );
 };

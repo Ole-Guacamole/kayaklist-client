@@ -28,7 +28,7 @@ const EditKayakPage = () => {
   useEffect(() => {
     const fetchKayak = async () => {
       try {
-        const response = await axios.get(`http://localhost:5005/kayaks/${id}`);
+        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/kayaks/${id}`);
         setFormData(response.data);
       } catch (err) {
         setError(err.message);

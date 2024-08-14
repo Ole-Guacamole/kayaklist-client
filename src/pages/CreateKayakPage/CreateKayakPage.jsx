@@ -27,6 +27,7 @@ const CreateKayakPage = () => {
   const [error, setError] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [isUserLoaded, setIsUserLoaded] = useState(false);
+  const [validationMessage, setValidationMessage] = useState('');
 
   useEffect(() => {
     if (user) {
@@ -52,9 +53,29 @@ const CreateKayakPage = () => {
     //console.log('Selected file:', e.target.files[0]);
   };
 
+  const validateForm = () => {
+    const messages = [];
+    if (!formData.ownerType) messages.push('Owner Type');
+    if (!formData.name) messages.push('Name');
+    if (!formData.model) messages.push('Model');
+    if (!formData.type) messages.push('Type');
+    if (!formData.material) messages.push('Material');
+    if (!formData.characteristics) messages.push('Characteristics');
+    if (!formData.paddlerSize) messages.push('Paddler Size');
+    if (!formData.steering) messages.push('Steering');
+    if (!formData.description) messages.push('Description');
+    if (messages.length > 0) {
+      setValidationMessage(`Please fill out the following fields: ${messages.join(', ')}`);
+      return false;
+    }
+    setValidationMessage('');
+    return true;
+  };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (validateForm()) {
     try {
       let imageUrl = formData.imageUrl;
 
@@ -62,7 +83,8 @@ const CreateKayakPage = () => {
         const uploadData = new FormData();
         uploadData.append("imageUrl", imageFile);
         const uploadRes = await axios.post(
-          "http://localhost:5005/upload",
+          `${import.meta.env.VITE_SERVER_URL}/upload`,
+          // "http://localhost:5005/upload",
           uploadData
         );
         imageUrl = uploadRes.data.fileUrl;
@@ -74,8 +96,10 @@ const CreateKayakPage = () => {
       navigate(`/kayaks`);
     } catch (err) {
       setError(err.message);
-    }
+    
   };
+}
+};
 
   return (
     <div className="container mx-auto p-4">
@@ -330,6 +354,7 @@ const CreateKayakPage = () => {
             rows="6"
           />
         </div>
+        {validationMessage && <div className="alert alert-warning">{validationMessage}</div>}
         <div className="w-full mt-6">
           <div className="flex justify-center">
             <button type="submit" className="btn btn-outline btn-primary mx-2">

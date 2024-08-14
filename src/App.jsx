@@ -10,11 +10,13 @@ import CreateKayakPage from "./pages/CreateKayakPage/CreateKayakPage";
 import EditKayakPage from "./pages/EditKayakPage/EditKayakPage";
 import KayakListPage from "./pages/KayakListPage/KayakListPage";
 import KayakRecoPage from "./pages/KayakRecoPage/KayakRecoPage";
+import AboutPage from "./pages/AboutPage/AboutPage";
 
 import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
 import IsAdminOnly from "./components/IsAdminOnly/IsAdminOnly";
+
 
 function App() {
   return (
@@ -52,6 +54,8 @@ function App() {
         />
 
         <Route path="/kayaks/:id" element={<IsPrivate><KayakDetailsPage /></IsPrivate>} />
+
+        <Route path="/about" element={<IsPrivate><AboutPage /></IsPrivate>} />
 
         <Route path="/kayaks/" element={<IsPrivate><KayakListPage /></IsPrivate>} />
 

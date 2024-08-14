@@ -29,7 +29,7 @@ function ReviewForm() {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:5005/reviews", {
+      const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/reviews`, {
         ...reviewState,
         user_id: user._id,
         kayak_id: id, // Use the id from the URL parameters

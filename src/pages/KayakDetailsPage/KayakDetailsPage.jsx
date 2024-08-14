@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ReviewForm from "../../components/ReviewForm";
 import ReviewList from "../../components/ReviewList";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const KayakDetailsPage = () => {
   const { id } = useParams();
@@ -12,10 +14,26 @@ const KayakDetailsPage = () => {
   const [error, setError] = useState(null);
   const [showReviewForm, setShowReviewForm] = useState(false);
 
+  const handleDelete = async () => {
+    if (window.confirm('Are you sure you want to delete this kayak?')) {
+      try {
+        const response = await axios.delete(`${import.meta.env.VITE_SERVER_URL}/kayaks/${kayak._id}`);
+        if (response.status === 204) {
+          toast.success('Kayak deleted successfully');
+          setTimeout(() => navigate('/kayaks'), 2000); // Navigate after 2 seconds
+        } else {
+          console.error('Failed to delete the kayak');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+  };
+
   useEffect(() => {
     const fetchKayakDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5005/kayaks/${id}`);
+        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/kayaks/${id}`);
         setKayak(response.data);
       } catch (err) {
         setError(err.message);
@@ -130,6 +148,8 @@ const KayakDetailsPage = () => {
               <span>Leisure</span>
               <span>Relaxed Touring</span>
               <span>Fast Touring</span>
+              <span>Marathon</span>
+              <span>Racing</span>
             </div>
           </p>
         </div>
@@ -194,6 +214,7 @@ const KayakDetailsPage = () => {
           <button className="btn btn-outline mx-2" onClick={toggleReviewForm}>
             {showReviewForm ? "Cancel" : "Add Review"}
           </button>
+          <button className="btn btn-outline mx-2" onClick={handleDelete}>Delete</button>
           <button className="btn btn-outline mx-2" onClick={handleBackClick}>
             Back
           </button>
