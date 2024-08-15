@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const ClubsKayaksList = () => {
   const [kayaks, setKayaks] = useState([]);
@@ -8,7 +8,7 @@ const ClubsKayaksList = () => {
   const [error, setError] = useState(null);
 
   const handleAddNewKayak = () => {
-    navigate('/add-new-kayak'); // Adjust the path as needed
+    Navigate('/add-new-kayak'); // Adjust the path as needed
   };
 
   useEffect(() => {
