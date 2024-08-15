@@ -84,7 +84,6 @@ const CreateKayakPage = () => {
         uploadData.append("imageUrl", imageFile);
         const uploadRes = await axios.post(
           `${import.meta.env.VITE_SERVER_URL}/upload`,
-          // "http://localhost:5005/upload",
           uploadData
         );
         imageUrl = uploadRes.data.fileUrl;
@@ -92,7 +91,7 @@ const CreateKayakPage = () => {
 
       const kayakData = { ...formData, imageUrl };
       console.log("Kayak data:", kayakData);
-      await axios.post(`http://localhost:5005/kayaks/`, kayakData);
+      await axios.post(`${import.meta.env.VITE_SERVER_URL}/kayaks`, kayakData);
       navigate(`/kayaks`);
     } catch (err) {
       setError(err.message);

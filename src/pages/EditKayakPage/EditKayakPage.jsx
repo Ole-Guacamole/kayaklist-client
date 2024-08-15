@@ -28,7 +28,9 @@ const EditKayakPage = () => {
   useEffect(() => {
     const fetchKayak = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/kayaks/${id}`);
+        const response = await axios.get(
+          `${import.meta.env.VITE_SERVER_URL}/kayaks/${id}`
+        );
         setFormData(response.data);
       } catch (err) {
         setError(err.message);
@@ -64,14 +66,17 @@ const EditKayakPage = () => {
         const uploadData = new FormData();
         uploadData.append("imageUrl", imageFile);
         const uploadRes = await axios.post(
-          "http://localhost:5005/upload",
+          `${import.meta.env.VITE_SERVER_URL}/upload`,
           uploadData
         );
         imageUrl = uploadRes.data.fileUrl;
       }
 
       const kayakData = { ...formData, imageUrl };
-      await axios.put(`http://localhost:5005/kayaks/${id}`, kayakData);
+      await axios.put(
+        `${import.meta.env.VITE_SERVER_URL}/kayaks/${id}`,
+        kayakData
+      );
       navigate(`/kayaks/${id}`);
     } catch (err) {
       setError(err.message);
