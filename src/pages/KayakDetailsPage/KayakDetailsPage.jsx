@@ -206,7 +206,7 @@ const KayakDetailsPage = () => {
           </p>
         </div>
         {kayak.ownerType === "Private Boat" && kayak.user_id && (
-          <div className="card w-full text-left bg-base-300">
+          <div className="card w-full mt-2 text-left bg-base-300">
             
               <p>
                 <strong>Contact:</strong> This is a private Kayak. If you want
