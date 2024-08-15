@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const PrivateKayaksList = () => {
   const [kayaks, setKayaks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleAddNewKayak = () => {
-    Navigate('/add-new-kayak'); // Adjust the path as needed
+    navigate('/add-new-kayak'); // Adjust the path as needed
   };
 
   useEffect(() => {
@@ -37,37 +38,35 @@ const PrivateKayaksList = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    
     <div>
       <div className="divider">Private Kayaks</div>
-      <p  className="text-center my-4">Members willing to offer their private kayaks for testing purposes to other members, can add their boats here.</p>
-      <div className="border p-4 rounded-lg bg-base-200 p-2 flex w-full flex-col border-opacity-50 ">
-      
-      <ul className="flex flex-wrap">
-        {kayaks.map((kayak) => (
-          <li key={kayak._id} className="w-full md:w-1/2 lg:w-1/3 p-2">
-            <Link to={`/kayaks/${kayak._id}`}>
-            <div className="border p-4 rounded-lg border-neutral">
-              <img
-                src={kayak.imageUrl}
-                alt={kayak.name}
-                className="max-w-xl w-full h-auto "
-              />
-              <h3 className="text-xl font-bold">{kayak.name}</h3>
-              <p className="mb-4">{kayak.characteristics}</p>
-            </div>
-          </Link>
-          </li>
-        ))}
-      </ul>
-      <div className="w-full mt-6">
-        <div className="flex justify-center">
-    
-    <button className="btn btn-outline mx-2" onClick={handleAddNewKayak}>
-          Add New Kayak
-        </button>
-    </div>
-    </div></div>
+      <p className="text-center my-4">Members willing to offer their private kayaks for testing purposes to other members, can add their boats here.</p>
+      <div className="border p-4 rounded-lg bg-base-200 p-2 flex w-full flex-col border-opacity-50">
+        <ul className="flex flex-wrap">
+          {kayaks.map((kayak) => (
+            <li key={kayak._id} className="w-full md:w-1/2 lg:w-1/3 p-2">
+              <Link to={`/kayaks/${kayak._id}`}>
+                <div className="border p-4 rounded-lg border-neutral">
+                  <img
+                    src={kayak.imageUrl}
+                    alt={kayak.name}
+                    className="max-w-xl w-full h-auto"
+                  />
+                  <h3 className="text-xl font-bold">{kayak.name}</h3>
+                  <p className="mb-4">{kayak.characteristics}</p>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <div className="w-full mt-6">
+          <div className="flex justify-center">
+            <button className="btn btn-outline mx-2" onClick={handleAddNewKayak}>
+              Add New Kayak
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
