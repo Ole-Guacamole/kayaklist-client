@@ -166,7 +166,10 @@ const CreateKayakPage = () => {
               <option value="Touring Kayak">Touring Kayak</option>
               <option value="Sea Kayak">Sea Kayak</option>
               <option value="Racing Kayak">Racing Kayak</option>
+              <option value="Surf Ski">Surf Ski</option>
               <option value="Wildwater Kayak">Wildwater Kayak</option>
+              <option value="Canoe">Canoe</option>
+              <option value="SUP">SUP</option>
             </select>
           </div>
           <div className="form-control w-full md:col-span-2 lg:col-span-3">
