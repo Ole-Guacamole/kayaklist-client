@@ -207,36 +207,34 @@ const KayakDetailsPage = () => {
         </div>
         {kayak.ownerType === "Private Boat" && kayak.user_id && (
           <div className="card w-full p-4 mt-4 text-left items-start bg-base-300">
-            
-              <p>
-                <strong>Contact:</strong> This is a private Kayak. If you want
-                to test it you can contact the owner,{" "}
-                <span className="font-semibold">{kayak.user_id.name}</span>,
-                under:
-              </p>
-              <p text-left>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 inline-block mr-2"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path d="M2.003 5.884L10 10.882l7.997-4.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884zM18 8.118l-8 5-8-5V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                </svg>
-                {kayak.user_id.email}
-              </p>
-              <p text-left>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 inline-block mr-2"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path d="M2.003 5.884L10 10.882l7.997-4.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884zM18 8.118l-8 5-8-5V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                </svg>
-                {kayak.user_id.phone}
-              </p>
-            
+            <p>
+              <strong>Contact:</strong> This is a private Kayak. If you want to
+              test it you can contact the owner,{" "}
+              <span className="font-semibold">{kayak.user_id.name}</span>,
+              under:
+            </p>
+            <p text-left>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 inline-block mr-2"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path d="M2.003 5.884L10 10.882l7.997-4.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884zM18 8.118l-8 5-8-5V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+              </svg>
+              {kayak.user_id.email}
+            </p>
+            <p text-left>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-4 w-4 opacity-70"
+              >
+                <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.27 11.36 11.36 0 004.25.81 1 1 0 011 1v3.5a1 1 0 01-1 1A19.93 19.93 0 012 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.81 4.25 1 1 0 01-.27 1.11l-2.2 2.2z" />
+              </svg>
+              {kayak.user_id.phone}
+            </p>
           </div>
         )}
       </div>
