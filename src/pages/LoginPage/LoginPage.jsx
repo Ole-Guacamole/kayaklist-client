@@ -73,6 +73,7 @@ function LoginPage() {
             type="password"
             className="grow"
             name="password"
+            placeholder="Password"
             value={password}
             onChange={handlePassword}
           />
