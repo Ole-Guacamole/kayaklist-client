@@ -25,7 +25,7 @@ function App() {
 
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route exact path="/" element={<HomePage />} />
 
         <Route
           path="/profile"
@@ -64,8 +64,6 @@ function App() {
         <Route path="/create-new-kayak" element={<IsPrivate><CreateKayakPage /></IsPrivate>} />
 
         <Route path="/kayaks/:id/edit" element={<IsPrivate><EditKayakPage /></IsPrivate>} />
-        
-        <Route path="*" element={<Navigate to="/" />} />
       
       
       </Routes>
