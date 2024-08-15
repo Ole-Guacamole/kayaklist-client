@@ -206,7 +206,7 @@ const KayakDetailsPage = () => {
           </p>
         </div>
         {kayak.ownerType === "Private Boat" && kayak.user_id && (
-          <div className="card w-full p-4 mt-4 bg-accent">
+          <div className="card w-full text-left bg-accent">
             <div className="card-body">
               <p>
                 <strong>Contact:</strong> This is a private Kayak. If you want
@@ -232,11 +232,7 @@ const KayakDetailsPage = () => {
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 3.5A1.5 1.5 0 013.5 2h13A1.5 1.5 0 0118 3.5v13a1.5 1.5 0 01-1.5 1.5h-13A1.5 1.5 0 012 16.5v-13zM4 4h12v12H4V4zm8 1a1 1 0 10-2 0v1a1 1 0 102 0V5zm-2 4a1 1 0 100 2h2a1 1 0 100-2h-2zm-2 4a1 1 0 100 2h6a1 1 0 100-2H8z"
-                    clipRule="evenodd"
-                  />
+                  <path d="M2.003 5.884L10 10.882l7.997-4.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884zM18 8.118l-8 5-8-5V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                 </svg>
                 {kayak.user_id.phone}
               </p>
