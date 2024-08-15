@@ -9,7 +9,7 @@ const PrivateKayaksList = () => {
   const navigate = useNavigate();
 
   const handleAddNewKayak = () => {
-    navigate('/add-new-kayak'); // Adjust the path as needed
+    navigate('/create-new-kayak'); // Adjust the path as needed
   };
 
   useEffect(() => {
