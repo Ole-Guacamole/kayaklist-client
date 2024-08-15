@@ -106,7 +106,7 @@ const KayakRecommendationPage = () => {
             </label>
             <select
               name="type"
-              value={formData.type}
+              value={formData.type[0] || ""}
               onChange={handleChange}
               className="select select-bordered w-full"
             >
