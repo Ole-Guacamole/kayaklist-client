@@ -206,7 +206,7 @@ const KayakRecommendationPage = () => {
 
       {showRecommendations && (
         <>
-          <h2>Recommended Kayaks</h2>
+          <h2>This are the kayaks which fit your needs. Feel free to change some values to get other results instantly.</h2>
           <ul className="flex flex-wrap">
             {filteredKayaks.length > 0 ? (
               filteredKayaks.map((kayak) => (

@@ -27,7 +27,7 @@ const CreateKayakPage = () => {
   const [error, setError] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [isUserLoaded, setIsUserLoaded] = useState(false);
-  const [validationMessage, setValidationMessage] = useState('');
+  const [validationMessage, setValidationMessage] = useState("");
 
   useEffect(() => {
     if (user) {
@@ -45,7 +45,7 @@ const CreateKayakPage = () => {
       ...prevFormData,
       [name]: type === "checkbox" ? checked : value,
     }));
-    console.log(`Updated ${name} to ${type === 'checkbox' ? checked : value}`);
+    console.log(`Updated ${name} to ${type === "checkbox" ? checked : value}`);
   };
 
   const handleFileChange = (e) => {
@@ -55,50 +55,53 @@ const CreateKayakPage = () => {
 
   const validateForm = () => {
     const messages = [];
-    if (!formData.ownerType) messages.push('Owner Type');
-    if (!formData.name) messages.push('Name');
-    if (!formData.model) messages.push('Model');
-    if (!formData.type) messages.push('Type');
-    if (!formData.material) messages.push('Material');
-    if (!formData.characteristics) messages.push('Characteristics');
-    if (!formData.paddlerSize) messages.push('Paddler Size');
-    if (!formData.steering) messages.push('Steering');
-    if (!formData.description) messages.push('Description');
+    if (!formData.ownerType) messages.push("Owner Type");
+    if (!formData.name) messages.push("Name");
+    if (!formData.model) messages.push("Model");
+    if (!formData.type) messages.push("Type");
+    if (!formData.material) messages.push("Material");
+    if (!formData.characteristics) messages.push("Characteristics");
+    if (!formData.paddlerSize) messages.push("Paddler Size");
+    if (!formData.steering) messages.push("Steering");
+    if (!formData.description) messages.push("Description");
     if (messages.length > 0) {
-      setValidationMessage(`Please fill out the following fields: ${messages.join(', ')}`);
+      setValidationMessage(
+        `Please fill out the following fields: ${messages.join(", ")}`
+      );
       return false;
     }
-    setValidationMessage('');
+    setValidationMessage("");
     return true;
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-    try {
-      let imageUrl = formData.imageUrl;
+      try {
+        let imageUrl = formData.imageUrl;
 
-      if (imageFile) {
-        const uploadData = new FormData();
-        uploadData.append("imageUrl", imageFile);
-        const uploadRes = await axios.post(
-          `${import.meta.env.VITE_SERVER_URL}/upload`,
-          uploadData
+        if (imageFile) {
+          const uploadData = new FormData();
+          uploadData.append("imageUrl", imageFile);
+          const uploadRes = await axios.post(
+            `${import.meta.env.VITE_SERVER_URL}/upload`,
+            uploadData
+          );
+          imageUrl = uploadRes.data.fileUrl;
+        }
+
+        const kayakData = { ...formData, imageUrl };
+        console.log("Kayak data:", kayakData);
+        await axios.post(
+          `${import.meta.env.VITE_SERVER_URL}/kayaks`,
+          kayakData
         );
-        imageUrl = uploadRes.data.fileUrl;
+        navigate(`/kayaks`);
+      } catch (err) {
+        setError(err.message);
       }
-
-      const kayakData = { ...formData, imageUrl };
-      console.log("Kayak data:", kayakData);
-      await axios.post(`${import.meta.env.VITE_SERVER_URL}/kayaks`, kayakData);
-      navigate(`/kayaks`);
-    } catch (err) {
-      setError(err.message);
-    
+    }
   };
-}
-};
 
   return (
     <div className="container mx-auto p-4">
@@ -267,7 +270,7 @@ const CreateKayakPage = () => {
               step="1"
             />
             <div className="flex w-full justify-between px-2 text-xs">
-            <span>Leisure</span>
+              <span>Leisure</span>
               <span>Relaxed Touring</span>
               <span>Fast Touring</span>
               <span>Marathon</span>
@@ -279,22 +282,22 @@ const CreateKayakPage = () => {
             <label className="label text-left w-full">
               <span>Capacity suitable for:</span>
             </label>
-              <input
-                type="range"
-                name="capacity"
-                min={0}
-                max={3}
-                value={formData.capacity}
-                onChange={handleChange}
-                className="range"
-                step="1"
-              />
-              <div className="flex w-full justify-between px-2 text-xs">
-                <span>Training</span>
-                <span>Day Trip</span>
-                <span>Multy-Day-Trip</span>
-                <span>One Week +</span>
-              </div>
+            <input
+              type="range"
+              name="capacity"
+              min={0}
+              max={3}
+              value={formData.capacity}
+              onChange={handleChange}
+              className="range"
+              step="1"
+            />
+            <div className="flex w-full justify-between px-2 text-xs">
+              <span>Training</span>
+              <span>Day Trip</span>
+              <span>Multy-Day-Trip</span>
+              <span>One Week +</span>
+            </div>
           </div>
 
           <div className="form-control w-full">
@@ -353,7 +356,9 @@ const CreateKayakPage = () => {
             rows="6"
           />
         </div>
-        {validationMessage && <div className="alert alert-warning">{validationMessage}</div>}
+        {validationMessage && (
+          <div className="alert alert-warning">{validationMessage}</div>
+        )}
         <div className="w-full mt-6">
           <div className="flex justify-center">
             <button type="submit" className="btn btn-outline btn-primary mx-2">
