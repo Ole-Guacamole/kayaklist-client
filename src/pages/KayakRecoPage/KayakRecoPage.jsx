@@ -11,13 +11,9 @@ const KayakRecommendationPage = () => {
     seats: 1,
   });
 
-  // State to hold all kayaks fetched from the API
   const [kayaks, setKayaks] = useState([]);
-  // State to hold filtered kayaks based on form data
   const [filteredKayaks, setFilteredKayaks] = useState([]);
-  // State to control the visibility of recommendations
   const [showRecommendations, setShowRecommendations] = useState(false);
-  // State to hold error messages
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
@@ -25,13 +21,13 @@ const KayakRecommendationPage = () => {
     axios
       .get(`${import.meta.env.VITE_SERVER_URL}/kayaks`)
       .then((response) => {
-        // console.log("API response:", response.data); // Debugging log
-        setKayaks(response.data); // Set the fetched kayaks to state
+        console.log("API response:", response.data); // Debugging log
+        setKayaks(response.data);
       })
       .catch((error) => {
         console.error("Error fetching kayaks:", error);
       });
-  }, []);  // Empty dependency array means this runs once on mount
+  }, []);
 
   useEffect(() => {
     // Filter kayaks based on formData
@@ -46,16 +42,16 @@ const KayakRecommendationPage = () => {
         kayak.seats === formData.seats // Filter based on solo/tandem
       );
     });
-    // console.log("Filtered kayaks:", filtered); // Debugging log
-    setFilteredKayaks(filtered); // Update the state with the filtered kayaks
-  }, [formData, kayaks]); // Dependency array for useEffect, runs when formData or kayaks change
+    console.log("Filtered kayaks:", filtered); // Debugging log
+    setFilteredKayaks(filtered);
+  }, [formData, kayaks]);
 
   const handleChange = (event) => {
-    const { name, value } = event.target; // Destructure name and value from the event target
+    const { name, value } = event.target;
 
-    if (name === "type") { // Check if the changed field is 'type'
+    if (name === "type") {
       let types;
-      if (value === "Touring Kayak") { // If the value is 'Touring Kayak' also set other types who are suitable for flat water use.
+      if (value === "Touring Kayak") {
         types = [
           "Touring Kayak",
           "Sea Kayak",
@@ -63,22 +59,27 @@ const KayakRecommendationPage = () => {
           "Wildwater Kayak",
           "Surf Ski",
           "SUP",
-          "Canoe",
-        ]; // Set types to an array of related kayak types
-      } else if (value === "Sea Kayak") { // If the value is 'Sea Kayak'
-        types = ["Sea Kayak", "Surf Ski"]; // Set types to an array of related kayak types
+          "Canoe"
+        ];
+      } else if (value === "Sea Kayak") {
+        types = [
+          "Sea Kayak",
+          "Surf Ski",
+          "SUP",
+          "Canoe"
+        ];
       } else {
-        types = [value]; // Otherwise, set types to an array with the single value
+        types = [value];
       }
 
       setFormData((prevFormData) => ({
         ...prevFormData,
-        [name]: types, // Update the formData state with the new types array
+        [name]: types,
       }));
     } else {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        [name]: parseInt(value, 10),  // Update the formData state with the parsed integer value
+        [name]: parseInt(value, 10),
       }));
     }
   };
@@ -215,10 +216,7 @@ const KayakRecommendationPage = () => {
 
       {showRecommendations && (
         <>
-          <h2>
-            This are the kayaks which fit your needs. Feel free to change some
-            values to get other results instantly.
-          </h2>
+          <h2>This are the kayaks which fit your needs. Feel free to change some values to get other results instantly.</h2>
           <ul className="flex flex-wrap">
             {filteredKayaks.length > 0 ? (
               filteredKayaks.map((kayak) => (
