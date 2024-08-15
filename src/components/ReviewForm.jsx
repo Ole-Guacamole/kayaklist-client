@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
 import { ReviewContext } from "../context/review.context";
@@ -6,20 +6,16 @@ import { useParams } from "react-router-dom";
 
 function ReviewForm() {
   const { user } = useContext(AuthContext); // Access user from AuthContext
-  const { reviewState, reviewDispatch, onReviewSubmitted } =
-    useContext(ReviewContext); // Access review state and dispatch from ReviewContext
+  const { handleAddReview } = useContext(ReviewContext); // Access handleAddReview from ReviewContext
   const { id } = useParams(); // Get the id from the URL parameters
-
-  if (!reviewState) {
-    return null; // or some fallback UI
-  }
+  const [reviewState, setReviewState] = useState({ rating: "", reviewContent: "" });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    reviewDispatch({
-      type: "UPDATE_REVIEW",
-      payload: { [name]: value },
-    });
+    setReviewState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -29,16 +25,13 @@ function ReviewForm() {
       return;
     }
     try {
-      const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/reviews`, {
+      const newReview = {
         ...reviewState,
         user_id: user._id,
         kayak_id: id, // Use the id from the URL parameters
-      });
-      onReviewSubmitted(response.data);
-      reviewDispatch({
-        type: "RESET_REVIEW",
-        payload: { user_id: user._id, kayak_id: id },
-      });
+      };
+      await handleAddReview(newReview);
+      setReviewState({ rating: "", reviewContent: "" });
     } catch (error) {
       console.error("Error submitting review:", error);
     }
@@ -51,7 +44,7 @@ function ReviewForm() {
         <select
           className="select select-bordered w-full"
           name="rating"
-          value={reviewState.rating ?? ""}
+          value={reviewState.rating}
           onChange={handleChange}
           required
         >
@@ -69,7 +62,7 @@ function ReviewForm() {
         <textarea
           className="textarea textarea-bordered w-full"
           name="reviewContent"
-          value={reviewState.reviewContent ?? ""}
+          value={reviewState.reviewContent}
           onChange={handleChange}
           required
         />

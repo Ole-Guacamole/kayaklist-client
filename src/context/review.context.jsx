@@ -1,30 +1,13 @@
-import React, { createContext, useReducer, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 export const ReviewContext = createContext();
 
-const initialState = {
-  rating: "",
-  reviewContent: "",
-};
-
-const reviewReducer = (state, action) => {
-  switch (action.type) {
-    case "UPDATE_REVIEW":
-      return { ...state, ...action.payload };
-    case "RESET_REVIEW":
-      return initialState;
-    case "ADD_REVIEW":
-      return { ...state, ...action.payload };
-    default:
-      return state;
-  }
-};
-
 export const ReviewProviderWrapper = ({ children }) => {
   const [reviews, setReviews] = useState([]);
-  const [reviewState, reviewDispatch] = useReducer(reviewReducer, initialState);
+  const [rating, setRating] = useState("");
+  const [reviewContent, setReviewContent] = useState("");
 
   const fetchReviews = async () => {
     try {
@@ -57,8 +40,9 @@ export const ReviewProviderWrapper = ({ children }) => {
   };
 
   const onReviewSubmitted = (newReview) => {
-    reviewDispatch({ type: "ADD_REVIEW", payload: newReview });
-    setReviews((prevReviews) => [...prevReviews, newReview]); // Update state directly
+    setRating(newReview.rating);
+    setReviewContent(newReview.reviewContent);
+    setReviews((prevReviews) => [...prevReviews, newReview]);
   };
 
   const handleDelete = async (reviewId) => {
@@ -88,9 +72,9 @@ export const ReviewProviderWrapper = ({ children }) => {
     <ReviewContext.Provider
       value={{
         reviews,
-        reviewState,
+        rating,
+        reviewContent,
         onReviewSubmitted,
-        reviewDispatch,
         handleAddReview,
         handleDelete,
       }}
