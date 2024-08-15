@@ -83,8 +83,10 @@ function LoginPage() {
       </form>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-      <p>Don't have an account yet?</p>
-      <Link className="btn btn-sm btn-outline btn-neutral" to={"/signup"}> Sign Up</Link>
+      <p className="text-bold">Don't have an account yet?</p>
+      <p>Please contact the club management to get one.</p>
+      
+
     </div>
   );
 }
