@@ -58,7 +58,7 @@ export const ReviewProviderWrapper = ({ children }) => {
 
   const onReviewSubmitted = (newReview) => {
     reviewDispatch({ type: "ADD_REVIEW", payload: newReview });
-    fetchReviews(); // Optionally re-fetch the reviews to ensure the list is up-to-date
+    setReviews((prevReviews) => [...prevReviews, newReview]); // Update state directly
   };
 
   const handleDelete = async (reviewId) => {
