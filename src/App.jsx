@@ -25,7 +25,7 @@ function App() {
 
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route exact path="/" element={<HomePage />} />
 
         <Route
           path="/profile"
