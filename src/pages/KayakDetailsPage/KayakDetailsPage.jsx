@@ -224,7 +224,7 @@ const KayakDetailsPage = () => {
               </svg>
               {kayak.user_id.email}
             </p>
-            <p mt-1 text-left>
+            <p mt-2 text-left>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 inline-block mr-2"
