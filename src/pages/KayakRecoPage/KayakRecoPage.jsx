@@ -57,7 +57,12 @@ const KayakRecommendationPage = () => {
           "Sea Kayak",
           "Racing Kayak",
           "Wildwater Kayak",
+          "Surf Ski",
+          "SUP",
+          "Canoe",
         ];
+      } else if (value === "Sea Kayak") {
+        types = ["Sea Kayak", "Surf Ski"];
       } else {
         types = [value];
       }
@@ -206,7 +211,10 @@ const KayakRecommendationPage = () => {
 
       {showRecommendations && (
         <>
-          <h2>This are the kayaks which fit your needs. Feel free to change some values to get other results instantly.</h2>
+          <h2>
+            This are the kayaks which fit your needs. Feel free to change some
+            values to get other results instantly.
+          </h2>
           <ul className="flex flex-wrap">
             {filteredKayaks.length > 0 ? (
               filteredKayaks.map((kayak) => (
