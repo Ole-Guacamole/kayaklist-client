@@ -3,8 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ReviewForm from "../../components/ReviewForm";
 import ReviewList from "../../components/ReviewList";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const KayakDetailsPage = () => {
   const { id } = useParams();
@@ -15,17 +15,19 @@ const KayakDetailsPage = () => {
   const [showReviewForm, setShowReviewForm] = useState(false);
 
   const handleDelete = async () => {
-    if (window.confirm('Are you sure you want to delete this kayak?')) {
+    if (window.confirm("Are you sure you want to delete this kayak?")) {
       try {
-        const response = await axios.delete(`${import.meta.env.VITE_SERVER_URL}/kayaks/${kayak._id}`);
+        const response = await axios.delete(
+          `${import.meta.env.VITE_SERVER_URL}/kayaks/${kayak._id}`
+        );
         if (response.status === 204) {
-          toast.success('Kayak deleted successfully');
-          setTimeout(() => navigate('/kayaks'), 2000); // Navigate after 2 seconds
+          toast.success("Kayak deleted successfully");
+          setTimeout(() => navigate("/kayaks"), 2000); // Navigate after 2 seconds
         } else {
-          console.error('Failed to delete the kayak');
+          console.error("Failed to delete the kayak");
         }
       } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
       }
     }
   };
@@ -33,7 +35,9 @@ const KayakDetailsPage = () => {
   useEffect(() => {
     const fetchKayakDetails = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/kayaks/${id}`);
+        const response = await axios.get(
+          `${import.meta.env.VITE_SERVER_URL}/kayaks/${id}`
+        );
         setKayak(response.data);
       } catch (err) {
         setError(err.message);
@@ -93,17 +97,22 @@ const KayakDetailsPage = () => {
           </p>
         </div>
         <div className="w-full p-2">
-        <p>
-          <strong>Material:</strong> {kayak.material}
-        </p>
-        {(kayak.material === "Wood" || kayak.material === "Kevlar/Carbon Fibre Laminate") && (
-          <div className="alert alert-warning mt-2">
-            <p>
-              <strong>Warning:</strong> This kayak is made of a delicate material. Please treat it with special care. You shouldn't land it directly on beaches but get out beforehand. You should also store it on stands if possible and not place it directly on hard floors such as concrete.
-            </p>
-          </div>
-        )}
-      </div>
+          <p>
+            <strong>Material:</strong> {kayak.material}
+          </p>
+          {(kayak.material === "Wood" ||
+            kayak.material === "Kevlar/Carbon Fibre Laminate") && (
+            <div className="alert alert-warning mt-2">
+              <p>
+                <strong>Warning:</strong> This kayak is made of a delicate
+                material. Please treat it with special care. You shouldn't land
+                it directly on beaches but get out beforehand. You should also
+                store it on stands if possible and not place it directly on hard
+                floors such as concrete.
+              </p>
+            </div>
+          )}
+        </div>
         <div className="w-full p-2">
           <p>
             <strong>Seats:</strong> {kayak.seats}
@@ -179,7 +188,9 @@ const KayakDetailsPage = () => {
           {!kayak.hasBulkheads && (
             <div className="alert alert-warning mt-2">
               <p>
-                <strong>Warning:</strong> This Kayak has no bulkheads, always ensure that buoyancy bags are in place and filled with air before paddling.
+                <strong>Warning:</strong> This Kayak has no bulkheads, always
+                ensure that buoyancy bags are in place and filled with air
+                before paddling.
               </p>
             </div>
           )}
@@ -195,12 +206,41 @@ const KayakDetailsPage = () => {
           </p>
         </div>
         {kayak.ownerType === "Private Boat" && kayak.user_id && (
-          <div className="w-full p-2 bg-accent">
-            <p>
-              <strong>Contact:</strong> This is a private Kayak. If you want to test it you can contact the owner, {kayak.user_id.name}, under:
-            </p>
-            <p>Email: {kayak.user_id.email} </p>
-            <p>Phone: {kayak.user_id.phone}</p>
+          <div className="card w-full p-4 mt-4 bg-accent">
+            <div className="card-body">
+              <p>
+                <strong>Contact:</strong> This is a private Kayak. If you want
+                to test it you can contact the owner,{" "}
+                <span className="font-semibold">{kayak.user_id.name}</span>,
+                under:
+              </p>
+              <p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 inline-block mr-2"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path d="M2.003 5.884L10 10.882l7.997-4.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884zM18 8.118l-8 5-8-5V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                </svg>
+                {kayak.user_id.email}
+              </p>
+              <p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 inline-block mr-2"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 3.5A1.5 1.5 0 013.5 2h13A1.5 1.5 0 0118 3.5v13a1.5 1.5 0 01-1.5 1.5h-13A1.5 1.5 0 012 16.5v-13zM4 4h12v12H4V4zm8 1a1 1 0 10-2 0v1a1 1 0 102 0V5zm-2 4a1 1 0 100 2h2a1 1 0 100-2h-2zm-2 4a1 1 0 100 2h6a1 1 0 100-2H8z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                {kayak.user_id.phone}
+              </p>
+            </div>
           </div>
         )}
       </div>
@@ -216,7 +256,9 @@ const KayakDetailsPage = () => {
           <button className="btn btn-outline mx-2" onClick={toggleReviewForm}>
             {showReviewForm ? "Cancel" : "Add Review"}
           </button>
-          <button className="btn btn-outline mx-2" onClick={handleDelete}>Delete</button>
+          <button className="btn btn-outline mx-2" onClick={handleDelete}>
+            Delete
+          </button>
           <button className="btn btn-outline mx-2" onClick={handleBackClick}>
             Back
           </button>
