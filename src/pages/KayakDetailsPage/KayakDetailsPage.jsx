@@ -50,7 +50,7 @@ const KayakDetailsPage = () => {
   };
 
   const handleReviewSubmitted = () => {
-    setShowReviewForm(false);
+    toggleReviewForm(); // Toggle the form visibility
   };
 
   const handleBackClick = () => {

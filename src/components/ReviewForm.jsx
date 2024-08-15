@@ -32,6 +32,7 @@ function ReviewForm() {
       };
       await handleAddReview(newReview);
       setReviewState({ rating: "", reviewContent: "" });
+      onReviewSubmitted(); // Call the prop function to toggle the form
     } catch (error) {
       console.error("Error submitting review:", error);
     }
