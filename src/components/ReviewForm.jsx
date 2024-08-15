@@ -4,7 +4,7 @@ import { AuthContext } from "../context/auth.context";
 import { ReviewContext } from "../context/review.context";
 import { useParams } from "react-router-dom";
 
-function ReviewForm() {
+function ReviewForm({ onReviewSubmitted }) {
   const { user } = useContext(AuthContext); // Access user from AuthContext
   const { handleAddReview } = useContext(ReviewContext); // Access handleAddReview from ReviewContext
   const { id } = useParams(); // Get the id from the URL parameters
