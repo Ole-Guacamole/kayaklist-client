@@ -33,7 +33,7 @@ function ReviewList({ kayakId }) {
           >
             <h3 className="font-semibold">Rating: {review.rating}</h3>
             <p>Review: {review.reviewContent}</p>
-            <p>By: {review.user_id.name}</p>
+            <p className="text-sm italic text-left">By: {review.user_id.name}</p>
             {review.user_id === user._id && (
               <button
                 className="btn btn-xs btn-outline btn-neutral"
