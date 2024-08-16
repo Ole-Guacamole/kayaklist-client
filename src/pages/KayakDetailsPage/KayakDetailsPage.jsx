@@ -78,6 +78,8 @@ const KayakDetailsPage = () => {
   const isAdmin = user.role === "admin";
   const isCreator = user._id === kayak.user_id; // A
 
+  console.log(`User ID: ${user._id}',Kayak User ID: ${kayak.user_id}, isCreator: ${isCreator}`);
+
   return (
     <div className="mx-auto p-4">
       <div className="rounded-box bg-base-200 max-w-xl p-6">
