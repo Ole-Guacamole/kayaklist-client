@@ -5,6 +5,7 @@ import ReviewForm from "../../components/ReviewForm";
 import ReviewList from "../../components/ReviewList";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AuthContext } from "../../context/auth.context";
 
 const KayakDetailsPage = () => {
   const { id } = useParams();
