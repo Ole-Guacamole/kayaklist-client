@@ -39,10 +39,12 @@ const KayakDetailsPage = () => {
   useEffect(() => {
     const fetchKayakDetails = async () => {
       try {
+        console.log("Fetching kayak details..."); 
         const response = await axios.get(
           `${import.meta.env.VITE_SERVER_URL}/kayaks/${id}`
         );
-        console.log(response.data); // Log the response
+        console.log("Response received:", response); // Log the full response
+        console.log("Response data:", response.data); // Log the response data
         setKayak(response.data);
       } catch (err) {
         setError(err.message);
