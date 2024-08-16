@@ -239,7 +239,7 @@ const KayakDetailsPage = () => {
         )}
       </div>
 
-      <div className="w-full mt-6">
+      <div className="w-full mt-6 max-w-xl">
         <div className="join flex justify-center">
           <button
             className="btn join-item btn-primary btn-outline"
@@ -263,9 +263,10 @@ const KayakDetailsPage = () => {
           <ReviewForm kayakId={id} onReviewSubmitted={handleReviewSubmitted} />
         
         )}
-        </div>
+        
         
         <ReviewList kayakId={id} />
+        </div>
       </div>
     </div>
   );
