@@ -242,18 +242,18 @@ const KayakDetailsPage = () => {
       <div className="w-full mt-6">
         <div className="join flex justify-center">
           <button
-            className="btn btn-primary btn-outline mx-2"
+            className="btn join-item btn-primary btn-outline"
             onClick={handleEditClick}
           >
             Edit
           </button>
-          <button className="btn join-item btn-outline mx-2" onClick={toggleReviewForm}>
+          <button className="btn join-item btn-outline" onClick={toggleReviewForm}>
             {showReviewForm ? "Cancel" : "Add Review"}
           </button>
-          <button className="btn join-item  btn-outline mx-2" onClick={handleDelete}>
+          <button className="btn join-item  btn-outline" onClick={handleDelete}>
             Delete
           </button>
-          <button className="btn join-item btn-outline mx-2" onClick={handleBackClick}>
+          <button className="btn join-item btn-outline" onClick={handleBackClick}>
             Back
           </button>
         </div>
