@@ -108,6 +108,7 @@ const CreateKayakPage = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <ToastContainer />
       <h1 className="text-2xl font-bold mb-4">Create New Kayak</h1>
       {error && <p className="text-red-500">{error}</p>}
       <form onSubmit={handleSubmit} className="space-y-4">
