@@ -257,10 +257,13 @@ const KayakDetailsPage = () => {
             Back
           </button>
         </div>
-
+        <div className="max-w-xl"> 
         {showReviewForm && (
+          
           <ReviewForm kayakId={id} onReviewSubmitted={handleReviewSubmitted} />
+        
         )}
+        </div>
 
         <ReviewList kayakId={id} />
       </div>
