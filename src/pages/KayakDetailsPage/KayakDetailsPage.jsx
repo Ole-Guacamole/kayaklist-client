@@ -16,10 +16,7 @@ const KayakDetailsPage = () => {
   const [error, setError] = useState(null);
   const [showReviewForm, setShowReviewForm] = useState(false);
 
-  const isClubKayak = kayak.type === "club";
-  const isPrivateKayak = kayak.type === "private";
-  const isAdmin = user.role === "admin";
-  const isCreator = user.id === kayak.user.id; // A
+  
 
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this kayak?")) {
@@ -71,6 +68,11 @@ const KayakDetailsPage = () => {
   const handleEditClick = () => {
     navigate(`/kayaks/${id}/edit`); // Navigate to the edit route
   };
+
+  const isClubKayak = kayak.type === "club";
+  const isPrivateKayak = kayak.type === "private";
+  const isAdmin = user.role === "admin";
+  const isCreator = user.id === kayak.user.id; // A
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
