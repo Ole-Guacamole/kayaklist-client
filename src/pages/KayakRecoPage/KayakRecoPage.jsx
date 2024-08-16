@@ -32,22 +32,16 @@ const KayakRecommendationPage = () => {
   useEffect(() => {
     // Filter kayaks based on formData
     const reversedStability = 10 - formData.stability;
-    console.log("Form Data:", formData); // Debugging log
-  
     const filtered = kayaks.filter((kayak) => {
       const isWildwater = formData.type.includes("Wildwater Kayak");
-      const speedCondition = isWildwater || kayak.speed >= formData.speed;
-      console.log(`Kayak speed: ${kayak.speed}, Form speed: ${formData.speed}, Condition: ${speedCondition}`); // Debugging log
-  
       return (
         kayak.stability >= reversedStability &&
-        speedCondition &&
+        kayak.speed >= formData.speed &&
         formData.type.includes(kayak.type) &&
         kayak.capacity >= formData.capacity &&
         kayak.seats === formData.seats // Filter based on solo/tandem
       );
     });
-  
     console.log("Filtered kayaks:", filtered); // Debugging log
     setFilteredKayaks(filtered);
   }, [formData, kayaks]);
