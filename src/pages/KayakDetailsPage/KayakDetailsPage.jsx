@@ -72,13 +72,15 @@ const KayakDetailsPage = () => {
     navigate(`/kayaks/${id}/edit`); // Navigate to the edit route
   };
 
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+
+  
   const isClubKayak = kayak.ownerType === "Club Boat";
   const isPrivateKayak = kayak.ownerType === "Private Boat";
   const isAdmin = user.role === "admin";
   const isCreator = user.id === kayak.user.id; // A
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="mx-auto p-4">
