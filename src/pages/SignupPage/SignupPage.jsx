@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SignupPage() {
   const [email, setEmail] = useState("");
@@ -37,7 +39,8 @@ function SignupPage() {
       .signup(requestBody)
       .then((response) => {
         // If the POST request is successful redirect to the login page
-        navigate("/login");
+        toast.success("Signup successful!");
+        setTimeout(() => navigate("/login"), 2000);
       })
       .catch((error) => {
         // If the request resolves with an error, set the error message in the state
@@ -48,6 +51,7 @@ function SignupPage() {
 
   return (
     <div className="SignupPage flex flex-col items-center justify-center min-h-screen space-y-4">
+      <ToastContainer />
       <h1 className="text-2xl font-bold mb-4">Create new user</h1>
 
       <form
