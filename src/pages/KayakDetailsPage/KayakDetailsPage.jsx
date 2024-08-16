@@ -240,7 +240,7 @@ const KayakDetailsPage = () => {
       </div>
 
       <div className="w-full mt-6">
-        <div className="flex justify-center">
+        <div className="joyn flex justify-center">
           <button
             className="btn btn-primary btn-outline mx-2"
             onClick={handleEditClick}
@@ -264,7 +264,7 @@ const KayakDetailsPage = () => {
         
         )}
         </div>
-
+        
         <ReviewList kayakId={id} />
       </div>
     </div>
