@@ -39,7 +39,7 @@ function SignupPage() {
       .signup(requestBody)
       .then((response) => {
         // If the POST request is successful redirect to the login page
-        toast.success("Signup successful!");
+        toast.success("New user created successfully!");
         setTimeout(() => navigate("/login"), 2000);
       })
       .catch((error) => {
