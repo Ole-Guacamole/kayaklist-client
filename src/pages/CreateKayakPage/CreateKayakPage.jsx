@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../context/auth.context";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateKayakPage = () => {
   const { user } = useContext(AuthContext);
@@ -91,12 +93,13 @@ const CreateKayakPage = () => {
         }
 
         const kayakData = { ...formData, imageUrl };
-        console.log("Kayak data:", kayakData);
+        // console.log("Kayak data:", kayakData);
         await axios.post(
           `${import.meta.env.VITE_SERVER_URL}/kayaks`,
           kayakData
         );
-        navigate(`/kayaks`);
+        toast.success("Kayak created successfully!");
+        setTimeout(() => navigate("/kayaks"), 2000);
       } catch (err) {
         setError(err.message);
       }
