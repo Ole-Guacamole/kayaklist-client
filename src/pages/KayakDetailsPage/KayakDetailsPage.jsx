@@ -69,8 +69,8 @@ const KayakDetailsPage = () => {
     navigate(`/kayaks/${id}/edit`); // Navigate to the edit route
   };
 
-  const isClubKayak = kayak.type === "club";
-  const isPrivateKayak = kayak.type === "private";
+  const isClubKayak = kayak.ownerType === "Club Boat";
+  const isPrivateKayak = kayak.ownerType === "Private Boat";
   const isAdmin = user.role === "admin";
   const isCreator = user.id === kayak.user.id; // A
 
