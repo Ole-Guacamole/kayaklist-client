@@ -21,7 +21,7 @@ const KayakRecommendationPage = () => {
     axios
       .get(`${import.meta.env.VITE_SERVER_URL}/kayaks`)
       .then((response) => {
-        console.log("API response:", response.data); // Debugging log
+        // console.log("API response:", response.data); // Debugging log
         setKayaks(response.data);
       })
       .catch((error) => {
@@ -30,10 +30,9 @@ const KayakRecommendationPage = () => {
   }, []);
 
   useEffect(() => {
-    // Filter kayaks based on formData
+    // Filter kayaks based on formData state
     const reversedStability = 10 - formData.stability;
     const filtered = kayaks.filter((kayak) => {
-      const isWildwater = formData.type.includes("Wildwater Kayak");
       return (
         kayak.stability >= reversedStability &&
         kayak.speed >= formData.speed &&
@@ -42,16 +41,19 @@ const KayakRecommendationPage = () => {
         kayak.seats === formData.seats // Filter based on solo/tandem
       );
     });
-    console.log("Filtered kayaks:", filtered); // Debugging log
+    // console.log("Filtered kayaks:", filtered); // Debugging log
     setFilteredKayaks(filtered);
-  }, [formData, kayaks]);
+  }, [formData, kayaks]); // Dependencies array: this useEffect runs when formData or kayaks change
 
   const handleChange = (event) => {
     const { name, value } = event.target;
 
     if (name === "type") {
       let types;
+      
+       // If the selected type is "Touring Kayak"
       if (value === "Touring Kayak") {
+        // Set the types array to include all kayak types which can navigate on flat water
         types = [
           "Touring Kayak",
           "Sea Kayak",
@@ -61,7 +63,10 @@ const KayakRecommendationPage = () => {
           "SUP",
           "Canoe"
         ];
-      } else if (value === "Sea Kayak") {
+      } 
+       // If the selected type is "Sea Kayak" 
+       else if (value === "Sea Kayak") { 
+        // => Set the types array to include other kayak types which can navigate on the sea
         types = [
           "Sea Kayak",
           "Surf Ski",
