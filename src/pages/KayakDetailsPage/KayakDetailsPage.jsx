@@ -80,7 +80,7 @@ const KayakDetailsPage = () => {
   const isClubKayak = kayak.ownerType === "Club Boat";
   const isPrivateKayak = kayak.ownerType === "Private Boat";
   const isAdmin = user.role === "admin";
-  const isCreator = user.id === kayak.user.id; // A
+  const isCreator = user._id === kayak.user._id; // A
 
   return (
     <div className="mx-auto p-4">
