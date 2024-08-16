@@ -76,9 +76,9 @@ const KayakDetailsPage = () => {
   const isClubKayak = kayak.ownerType === "Club Boat";
   const isPrivateKayak = kayak.ownerType === "Private Boat";
   const isAdmin = user.role === "admin";
-  const isCreator = user._id === kayak.user_id; // A
+  const isCreator = user._id === kayak.user_id._id; // A
 
-  console.log(`User ID: ${user._id}',Kayak User ID: ${kayak.user_id}, isCreator: ${isCreator}`);
+  console.log(`User ID: ${user._id}',Kayak User ID: ${kayak.user_id._id}, isCreator: ${isCreator}`);
 
   return (
     <div className="mx-auto p-4">
