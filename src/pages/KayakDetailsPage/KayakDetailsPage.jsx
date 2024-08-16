@@ -42,6 +42,7 @@ const KayakDetailsPage = () => {
         const response = await axios.get(
           `${import.meta.env.VITE_SERVER_URL}/kayaks/${id}`
         );
+        console.log(response.data); // Log the response
         setKayak(response.data);
       } catch (err) {
         setError(err.message);
