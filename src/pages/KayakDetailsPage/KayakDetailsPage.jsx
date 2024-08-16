@@ -16,8 +16,6 @@ const KayakDetailsPage = () => {
   const [error, setError] = useState(null);
   const [showReviewForm, setShowReviewForm] = useState(false);
 
-  
-
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this kayak?")) {
       try {
@@ -39,7 +37,7 @@ const KayakDetailsPage = () => {
   useEffect(() => {
     const fetchKayakDetails = async () => {
       try {
-        console.log("Fetching kayak details..."); 
+        console.log("Fetching kayak details...");
         const response = await axios.get(
           `${import.meta.env.VITE_SERVER_URL}/kayaks/${id}`
         );
@@ -72,11 +70,9 @@ const KayakDetailsPage = () => {
     navigate(`/kayaks/${id}/edit`); // Navigate to the edit route
   };
 
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  
   const isClubKayak = kayak.ownerType === "Club Boat";
   const isPrivateKayak = kayak.ownerType === "Private Boat";
   const isAdmin = user.role === "admin";
@@ -264,12 +260,6 @@ const KayakDetailsPage = () => {
                 Edit
               </button>
               <button
-                className="btn join-item btn-outline"
-                onClick={toggleReviewForm}
-              >
-                {showReviewForm ? "Cancel" : "Add Review"}
-              </button>
-              <button
                 className="btn join-item  btn-outline"
                 onClick={handleDelete}
               >
@@ -299,7 +289,12 @@ const KayakDetailsPage = () => {
               </button>
             </div>
           )}
-
+          <button
+            className="btn join-item btn-outline"
+            onClick={toggleReviewForm}
+          >
+            {showReviewForm ? "Cancel" : "Add Review"}
+          </button>
           <button
             className="btn join-item btn-outline"
             onClick={handleBackClick}
