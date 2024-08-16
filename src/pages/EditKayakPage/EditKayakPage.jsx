@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditKayakPage = () => {
   const { id } = useParams();
@@ -77,7 +79,8 @@ const EditKayakPage = () => {
         `${import.meta.env.VITE_SERVER_URL}/kayaks/${id}`,
         kayakData
       );
-      navigate(`/kayaks/${id}`);
+      toast.success("Kayak updated successfully!");
+      setTimeout(() => navigate(`/kayaks/${id}`), 2000);
     } catch (err) {
       setError(err.message);
     }
@@ -85,6 +88,7 @@ const EditKayakPage = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <ToastContainer />
       <h1 className="text-2xl font-bold mb-4">Edit Kayak: {formData.name}</h1>
       {error && <p className="text-red-500">{error}</p>}
       <form onSubmit={handleSubmit} className="space-y-4">
