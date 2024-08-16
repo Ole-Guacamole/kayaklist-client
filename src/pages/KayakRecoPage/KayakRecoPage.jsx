@@ -166,12 +166,12 @@ const KayakRecommendationPage = () => {
           <input
             type="range"
             name="speed"
-            min={1}
-            max={9}
+            min={0}
+            max={10}
             value={formData.speed}
             onChange={handleChange}
             className="range"
-            step="1"
+            step={1}
           />
           <div className="flex w-full justify-between px-2 text-xs sm:text-sm">
             <span>Leisure</span>
