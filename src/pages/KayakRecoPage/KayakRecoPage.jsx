@@ -149,7 +149,7 @@ const KayakRecommendationPage = () => {
             value={formData.stability}
             onChange={handleChange}
             className="range"
-            step="1"
+            step={1}
           />
           <div className="flex w-full justify-between px-2 text-xs sm:text-sm">
             <span>Beginner</span>
@@ -190,11 +190,11 @@ const KayakRecommendationPage = () => {
             type="range"
             name="capacity"
             min={0}
-            max="3"
+            max={3}
             value={formData.capacity}
             onChange={handleChange}
             className="range"
-            step="1"
+            step={1}
           />
           <div className="flex w-full justify-between px-2 text-xs sm:text-sm">
             <span>Some Hours</span>
