@@ -8,11 +8,17 @@ import "react-toastify/dist/ReactToastify.css";
 
 const KayakDetailsPage = () => {
   const { id } = useParams();
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [kayak, setKayak] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showReviewForm, setShowReviewForm] = useState(false);
+
+  const isClubKayak = kayak.type === "club";
+  const isPrivateKayak = kayak.type === "private";
+  const isAdmin = user.role === "admin";
+  const isCreator = user.id === kayak.user.id; // A
 
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this kayak?")) {
@@ -241,31 +247,67 @@ const KayakDetailsPage = () => {
 
       <div className="w-full mt-6 max-w-xl">
         <div className="join flex justify-center">
+          {isClubKayak && isAdmin && (
+            <div>
+              <button
+                className="btn join-item btn-primary btn-outline"
+                onClick={handleEditClick}
+              >
+                Edit
+              </button>
+              <button
+                className="btn join-item btn-outline"
+                onClick={toggleReviewForm}
+              >
+                {showReviewForm ? "Cancel" : "Add Review"}
+              </button>
+              <button
+                className="btn join-item  btn-outline"
+                onClick={handleDelete}
+              >
+                Delete
+              </button>
+            </div>
+          )}
+          {isPrivateKayak && isCreator && (
+            <div>
+              <button
+                className="btn join-item btn-primary btn-outline"
+                onClick={handleEditClick}
+              >
+                Edit
+              </button>
+              <button
+                className="btn join-item btn-outline"
+                onClick={toggleReviewForm}
+              >
+                {showReviewForm ? "Cancel" : "Add Review"}
+              </button>
+              <button
+                className="btn join-item  btn-outline"
+                onClick={handleDelete}
+              >
+                Delete
+              </button>
+            </div>
+          )}
+
           <button
-            className="btn join-item btn-primary btn-outline"
-            onClick={handleEditClick}
+            className="btn join-item btn-outline"
+            onClick={handleBackClick}
           >
-            Edit
-          </button>
-          <button className="btn join-item btn-outline" onClick={toggleReviewForm}>
-            {showReviewForm ? "Cancel" : "Add Review"}
-          </button>
-          <button className="btn join-item  btn-outline" onClick={handleDelete}>
-            Delete
-          </button>
-          <button className="btn join-item btn-outline" onClick={handleBackClick}>
             Back
           </button>
         </div>
-        <div className="max-w-xl"> 
-        {showReviewForm && (
-          
-          <ReviewForm kayakId={id} onReviewSubmitted={handleReviewSubmitted} />
-        
-        )}
-        
-        
-        <ReviewList kayakId={id} />
+        <div className="max-w-xl">
+          {showReviewForm && (
+            <ReviewForm
+              kayakId={id}
+              onReviewSubmitted={handleReviewSubmitted}
+            />
+          )}
+
+          <ReviewList kayakId={id} />
         </div>
       </div>
     </div>
