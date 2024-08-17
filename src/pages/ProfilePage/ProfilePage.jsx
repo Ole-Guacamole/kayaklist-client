@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../context/auth.context';
+import { ReviewContext } from '../../context/review.context';
 import { Link } from 'react-router-dom';
 
 const ProfilePage = () => {
@@ -10,6 +11,7 @@ const ProfilePage = () => {
   const [kayaks, setKayaks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { handleDelete } = useContext(ReviewContext);
 
   useEffect(() => {
     if (!authUser) return;
