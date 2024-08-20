@@ -79,7 +79,9 @@ const KayakDetailsPage = () => {
   const isAdmin = user.role === "admin";
   const isCreator = user._id === kayak.user_id._id; // A
 
-  console.log(`User ID: ${user._id}',Kayak User ID: ${kayak.user_id._id}, isCreator: ${isCreator}`);
+  console.log(
+    `User ID: ${user._id}',Kayak User ID: ${kayak.user_id._id}, isCreator: ${isCreator}`
+  );
 
   return (
     <div className="mx-auto p-4">
@@ -305,6 +307,9 @@ const KayakDetailsPage = () => {
             Back
           </button>
         </div>
+        <div>
+          <RentalDatePicker kayakId={id} />
+        </div>
         <div className="max-w-xl">
           {showReviewForm && (
             <ReviewForm
@@ -314,9 +319,6 @@ const KayakDetailsPage = () => {
           )}
 
           <ReviewList kayakId={id} />
-        </div>
-        <div>
-          <RentalDatePicker kayakId={id} />
         </div>
       </div>
     </div>

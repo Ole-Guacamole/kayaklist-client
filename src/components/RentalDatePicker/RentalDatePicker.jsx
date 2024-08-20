@@ -74,29 +74,28 @@ const RentalDatePicker = ({ kayakId }) => {
 
   return (
     <>
-    <h3 className="font-semibold text-center">Choose a date range to book a kayak for rent:</h3>
-    <div className="w-full p-3 m-3 bg-gray-100 rounded-lg border border-gray-300">
-    
-      <DayPicker
-        mode="range"
-        selected={range}
-        onSelect={setRange}
-        disabled={disabledDays}
-        modifiers={{
-          booked: disabledDays
-        }}
-        modifiersStyles={{
-          booked: {
-            backgroundColor: '#ffcccc',
-            color: '#ff0000'
-          }
-        }}
-      />
-      <button className="btn btn-primary btn-outline" onClick={handleSubmit}>Rent Kayak</button>
-    </div>
+      <h3 className="text-2xl font-bold mb-4 text-center">Choose a date range to book a kayak for rent:</h3>
+      <div className="flex justify-center items-center w-full p-4 m-4 rounded-lg border border-gray-300">
+        <div className="text-center">
+          <DayPicker
+            mode="range"
+            selected={range}
+            onSelect={setRange}
+            disabled={disabledDays}
+            modifiers={{
+              booked: disabledDays
+            }}
+            modifiersStyles={{
+              booked: {
+                backgroundColor: '#ffcccc',
+                color: '#ff0000'
+              }
+            }}
+          />
+          <button className="btn btn-primary btn-outline mt-4" onClick={handleSubmit}>Rent Kayak</button>
+        </div>
+      </div>
     </>
-    
-
   );
 };
 
