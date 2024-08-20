@@ -74,8 +74,8 @@ const RentalDatePicker = ({ kayakId }) => {
 
   return (
     <>
-      <h3 className="text-2xl font-bold mb-4 text-center">Choose a date range to book a kayak for rent:</h3>
-      <div className="flex justify-center items-center w-full p-4 m-4 rounded-lg border border-gray-300">
+      <h3 className="text-2xl font-bold mt-4 mb-2 text-center">Reserve Kayak:</h3>
+      <div className="flex justify-center items-center w-full p-4 mb-4 rounded-lg border border-gray-300">
         <div className="text-center">
           <DayPicker
             mode="range"
