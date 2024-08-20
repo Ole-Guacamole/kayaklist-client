@@ -100,7 +100,7 @@ const ProfilePage = () => {
           {reviews.map(review => (
             <div
             key={review._id}
-            className="p-3 m-3 bg-gray-100 rounded-lg border border-gray-300"
+            className="p-3 my-3 bg-gray-100 rounded-lg border border-gray-300"
           >
             <h3 className="font-semibold">Rating: {review.rating}</h3>
             <p>Review: {review.reviewContent}</p>

@@ -92,7 +92,7 @@ const RentalDatePicker = ({ kayakId }) => {
                 color: '#ff0000'
               },
               rounded: {
-                borderRadius: '50%' // Round the edges of the days
+                borderRadius: '10%' // Round the edges of the days
               }
             }}
           />
