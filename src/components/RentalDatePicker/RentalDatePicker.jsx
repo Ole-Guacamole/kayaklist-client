@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import 'react-day-picker/lib/style.css';
-import { DayPicker } from 'react-day-picker';
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/style.css";
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext'; // Adjust the import path as necessary
 
