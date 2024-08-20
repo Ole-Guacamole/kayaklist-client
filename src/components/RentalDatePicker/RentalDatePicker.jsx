@@ -11,6 +11,10 @@ const RentalDatePicker = ({ kayakId }) => {
 
   useEffect(() => {
     // Fetch booked dates from the backend
+    fetchBookedDates();
+  }, [kayakId]);
+
+  const fetchBookedDates = () => {
     axios.get(`${import.meta.env.VITE_SERVER_URL}/rentals/kayaks/${kayakId}`)
       .then(response => {
         // Convert booked dates to Date objects
@@ -31,7 +35,7 @@ const RentalDatePicker = ({ kayakId }) => {
           console.error('Error message:', error.message);
         }
       });
-  }, [kayakId]);
+  };
 
   const handleSubmit = () => {
     if (range?.from && range?.to) {
@@ -39,12 +43,15 @@ const RentalDatePicker = ({ kayakId }) => {
         .then(response => {
           // Handle the response data
           console.log(response.data);
+          // Fetch updated booked dates
+          fetchBookedDates();
         })
         .catch(error => {
           console.error('Error submitting rental:', error);
           if (error.response) {
             console.error('Error response data:', error.response.data);
             console.error('Error response status:', error.response.status);
+            console.error('Error response headers:', error.response.headers);
           } else if (error.request) {
             console.error('Error request:', error.request);
           } else {
@@ -59,16 +66,17 @@ const RentalDatePicker = ({ kayakId }) => {
   // Convert booked dates to a format that can be used by react-day-picker
   const disabledDays = bookedDates.flatMap(({ from, to }) => {
     const days = [];
-    for (let d = new Date(from); d <= to; d.setDate(d.getDate() + 1)) {
+    for (let d = new Date(from); d <= new Date(to); d.setDate(d.getDate() + 1)) {
       days.push(new Date(d));
     }
     return days;
   });
 
   return (
+    <>
+    <h3 className="font-semibold text-center">Choose a date range to book a kayak for rent:</h3>
+    <div className="w-full p-3 m-3 bg-gray-100 rounded-lg border border-gray-300">
     
-    <div className="p-3 m-3 bg-gray-100 rounded-lg border border-gray-300">
-      <h3 className="font-semibold">Chose a date range to book a kayak for rent:</h3>
       <DayPicker
         mode="range"
         selected={range}
@@ -84,8 +92,11 @@ const RentalDatePicker = ({ kayakId }) => {
           }
         }}
       />
-      <button className="btn btn-xs btn-outline btn-neutral" onClick={handleSubmit}>Rent Kayak</button>
+      <button className="btn btn-primary btn-outline" onClick={handleSubmit}>Rent Kayak</button>
     </div>
+    </>
+    
+
   );
 };
 
