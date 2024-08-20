@@ -13,7 +13,12 @@ const RentalDatePicker = ({ kayakId }) => {
     // Fetch booked dates from the backend
     axios.get(`${import.meta.env.VITE_SERVER_URL}/rentals/kayaks/${kayakId}`)
       .then(response => {
-        setBookedDates(response.data);
+        // Convert booked dates to Date objects
+        const dates = response.data.map(rental => ({
+          from: new Date(rental.startDate),
+          to: new Date(rental.endDate)
+        }));
+        setBookedDates(dates);
       })
       .catch(error => {
         console.error('Error fetching booked dates:', error);
@@ -52,7 +57,13 @@ const RentalDatePicker = ({ kayakId }) => {
   };
 
   // Convert booked dates to a format that can be used by react-day-picker
-  const disabledDays = bookedDates.map(date => new Date(date));
+  const disabledDays = bookedDates.flatMap(({ from, to }) => {
+    const days = [];
+    for (let d = new Date(from); d <= to; d.setDate(d.getDate() + 1)) {
+      days.push(new Date(d));
+    }
+    return days;
+  });
 
   return (
     <div>
