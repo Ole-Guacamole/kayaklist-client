@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import 'react-day-picker/lib/style.css';
-import { DayPicker, DateRange } from 'react-day-picker';
+import { DayPicker } from 'react-day-picker';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext'; // Adjust the import path as necessary
 
 const RentalDatePicker = () => {
   const { kayakId } = useParams();
-  const [range, setRange] = useState<DateRange | undefined>(undefined);
+  const [range, setRange] = useState(undefined);
   const [bookedDates, setBookedDates] = useState([]);
   const { user } = useContext(AuthContext);
 
