@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
 import axios from 'axios';
-import { AuthContext } from "../context/auth.context";
+import { AuthContext } from "../../context/auth.context";
 
 const RentalDatePicker = () => {
   const { kayakId } = useParams();
