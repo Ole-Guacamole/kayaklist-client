@@ -316,7 +316,7 @@ const KayakDetailsPage = () => {
           <ReviewList kayakId={id} />
         </div>
         <div>
-          <RentalDatePicker/>
+          <RentalDatePicker kayakId={id} />
         </div>
       </div>
     </div>
