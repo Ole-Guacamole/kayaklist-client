@@ -6,6 +6,7 @@ import ReviewList from "../../components/ReviewList";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../context/auth.context";
+import RentalDatePicker from "../../components/RentalDatePicker/RentalDatePicker";
 
 const KayakDetailsPage = () => {
   const { id } = useParams();
@@ -313,6 +314,9 @@ const KayakDetailsPage = () => {
           )}
 
           <ReviewList kayakId={id} />
+        </div>
+        <div>
+          <RentalDatePicker/>
         </div>
       </div>
     </div>
