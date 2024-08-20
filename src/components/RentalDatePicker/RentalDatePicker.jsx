@@ -83,12 +83,16 @@ const RentalDatePicker = ({ kayakId }) => {
             onSelect={setRange}
             disabled={disabledDays}
             modifiers={{
-              booked: disabledDays
+              booked: disabledDays,
+              rounded: (date) => true // Apply to all days
             }}
             modifiersStyles={{
               booked: {
                 backgroundColor: '#ffcccc',
                 color: '#ff0000'
+              },
+              rounded: {
+                borderRadius: '50%' // Round the edges of the days
               }
             }}
           />
