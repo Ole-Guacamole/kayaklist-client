@@ -11,7 +11,7 @@ const RentalDatePicker = ({ kayakId }) => {
 
   useEffect(() => {
     // Fetch booked dates from the backend
-    axios.get(`/rentals/kayaks/${kayakId}`)
+    axios.get(`${import.meta.env.VITE_SERVER_URL}/rentals/kayaks/${kayakId}`)
       .then(response => {
         setBookedDates(response.data);
       })
@@ -30,7 +30,7 @@ const RentalDatePicker = ({ kayakId }) => {
 
   const handleSubmit = () => {
     if (range?.from && range?.to) {
-      axios.post('/rentals', { kayak_id: kayakId, user_id: user._id, startDate: range.from, endDate: range.to })
+      axios.post(`${import.meta.env.VITE_SERVER_URL}/rentals`, { kayak_id: kayakId, user_id: user._id, startDate: range.from, endDate: range.to })
         .then(response => {
           // Handle the response data
           console.log(response.data);
