@@ -19,6 +19,14 @@ const RentalDatePicker = () => {
       })
       .catch(error => {
         console.error('Error fetching booked dates:', error);
+        if (error.response) {
+          console.error('Error response data:', error.response.data);
+          console.error('Error response status:', error.response.status);
+        } else if (error.request) {
+          console.error('Error request:', error.request);
+        } else {
+          console.error('Error message:', error.message);
+        }
       });
   }, [kayakId]);
 
@@ -30,7 +38,15 @@ const RentalDatePicker = () => {
           console.log(response.data);
         })
         .catch(error => {
-          console.error('Error:', error);
+          console.error('Error submitting rental:', error);
+          if (error.response) {
+            console.error('Error response data:', error.response.data);
+            console.error('Error response status:', error.response.status);
+          } else if (error.request) {
+            console.error('Error request:', error.request);
+          } else {
+            console.error('Error message:', error.message);
+          }
         });
     } else {
       console.error('Please select a date range.');
