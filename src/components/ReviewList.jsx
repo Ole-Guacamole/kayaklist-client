@@ -22,14 +22,14 @@ function ReviewList({ kayakId }) {
   console.log("Filtered Reviews:", filteredAndSortedReviews);
 
   return (
-    <div>
+    <>
       <h3 className="text-xl">User Reviews: </h3>
       <ToastContainer key="toast-container" />
       {filteredAndSortedReviews && filteredAndSortedReviews.length > 0 ? (
         filteredAndSortedReviews.map((review) => (
           <div
             key={review._id}
-            className="p-3 m-3 bg-gray-100 rounded-lg border border-gray-300"
+            className="p-3 my-3 bg-gray-100 rounded-lg border border-gray-300"
           >
             <h3 className="font-semibold">Rating: {review.rating}</h3>
             <p>Review: {review.reviewContent}</p>
@@ -47,7 +47,7 @@ function ReviewList({ kayakId }) {
       ) : (
         <p>No reviews for this kayak yet.</p>
       )}
-    </div>
+    </>
   );
 }
 

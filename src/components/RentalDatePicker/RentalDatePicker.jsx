@@ -3,6 +3,8 @@ import 'react-day-picker/dist/style.css';
 import { DayPicker } from 'react-day-picker';
 import axios from 'axios';
 import { AuthContext } from "../../context/auth.context";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RentalDatePicker = ({ kayakId }) => {
   const [range, setRange] = useState(undefined);
@@ -20,7 +22,10 @@ const RentalDatePicker = ({ kayakId }) => {
         // Convert booked dates to Date objects
         const dates = response.data.map(rental => ({
           from: new Date(rental.startDate),
-          to: new Date(rental.endDate)
+          to: new Date(rental.endDate),
+          user: rental.user_id.name,
+          userId: rental.user_id._id,
+          id: rental._id
         }));
         setBookedDates(dates);
       })
@@ -43,6 +48,7 @@ const RentalDatePicker = ({ kayakId }) => {
         .then(response => {
           // Handle the response data
           console.log(response.data);
+          toast.success('New reservation created successfully!');
           // Fetch updated booked dates
           fetchBookedDates();
         })
@@ -63,6 +69,25 @@ const RentalDatePicker = ({ kayakId }) => {
     }
   };
 
+  const handleDelete = (id) => {
+    axios.delete(`${import.meta.env.VITE_SERVER_URL}/rentals/${id}`)
+      .then(response => {
+        toast.success('Reservation deleted successfully!');
+        fetchBookedDates(); // Refresh booked dates
+      })
+      .catch(error => {
+        console.error('Error deleting reservation:', error);
+        if (error.response) {
+          console.error('Error response data:', error.response.data);
+          console.error('Error response status:', error.response.status);
+        } else if (error.request) {
+          console.error('Error request:', error.request);
+        } else {
+          console.error('Error message:', error.message);
+        }
+      });
+  };
+
   // Convert booked dates to a format that can be used by react-day-picker
   const disabledDays = bookedDates.flatMap(({ from, to }) => {
     const days = [];
@@ -74,6 +99,7 @@ const RentalDatePicker = ({ kayakId }) => {
 
   return (
     <>
+    <ToastContainer />
       <h3 className="text-xl font-bold mt-4 mb-2 text-center">Reserve Kayak:</h3>
       <div className="flex justify-center items-center w-full p-4 mb-4 rounded-lg border border-gray-300">
         <div className="text-center">
@@ -84,7 +110,7 @@ const RentalDatePicker = ({ kayakId }) => {
             disabled={disabledDays}
             modifiers={{
               booked: disabledDays,
-              rounded: (date) => true // Apply to all days
+              rounded: (date) => true, // Apply to all day
             }}
             modifiersStyles={{
               booked: {
@@ -92,12 +118,25 @@ const RentalDatePicker = ({ kayakId }) => {
                 color: '#ff0000'
               },
               rounded: {
-                borderRadius: '10%' // Round the edges of the days
+                borderRadius: '30%' // Round the edges of the days
               }
             }}
           />
-          <button className="btn btn-primary btn-outline mt-4" onClick={handleSubmit}>Rent Kayak</button>
+          <button className="btn btn-primary btn-outline mt-4" onClick={handleSubmit}>Reserve kayak</button>
         </div>
+      </div>
+      <div className="mt-4 text-center">
+        <h4 className="text-lg font-bold mb-2">Existing Reservations:</h4>
+        <ul className="list-disc list-inside">
+        {bookedDates.map((date, index) => (
+            <p key={index}>
+              {date.from.toLocaleDateString()} - {date.to.toLocaleDateString()} by {date.user}
+              {(user._id === date.userId) && (
+                <button className="btn btn-danger btn-sm ml-2" onClick={() => handleDelete(date.id)}>Delete</button>
+              )}
+            </p>
+          ))}
+        </ul>
       </div>
     </>
   );
