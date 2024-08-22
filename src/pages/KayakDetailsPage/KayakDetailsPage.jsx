@@ -281,12 +281,6 @@ const KayakDetailsPage = () => {
                 Edit
               </button>
               <button
-                className="btn join-item btn-outline"
-                onClick={toggleReviewForm}
-              >
-                {showReviewForm ? "Cancel" : "Add Review"}
-              </button>
-              <button
                 className="btn join-item  btn-outline"
                 onClick={handleDelete}
               >

@@ -125,14 +125,14 @@ const RentalDatePicker = ({ kayakId }) => {
           <button className="btn btn-primary btn-outline mt-4" onClick={handleSubmit}>Reserve kayak</button>
         </div>
       </div>
-      <div className="mt-4 text-center">
+      <div className="mt-4 mb-6 text-center">
         <h4 className="text-lg font-bold mb-2">Existing Reservations:</h4>
         <ul className="list-disc list-inside">
         {bookedDates.map((date, index) => (
-            <p key={index}>
+            <p key={index} className="my-2">
               {date.from.toLocaleDateString()} - {date.to.toLocaleDateString()} by {date.user}
               {(user._id === date.userId) && (
-                <button className="btn btn-danger btn-sm ml-2" onClick={() => handleDelete(date.id)}>Delete</button>
+                <button className="btn btn-danger btn-xs btn-outline ml-2" onClick={() => handleDelete(date.id)}>Delete</button>
               )}
             </p>
           ))}

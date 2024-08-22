@@ -16,18 +16,19 @@ const KayakRecommendationPage = () => {
   const [showRecommendations, setShowRecommendations] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  useEffect(() => {
-    // Fetch kayaks from the API
-    axios
-      .get(`${import.meta.env.VITE_SERVER_URL}/kayaks`)
-      .then((response) => {
-        // console.log("API response:", response.data); // Debugging log
-        setKayaks(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching kayaks:", error);
-      });
-  }, []);
+useEffect(() => {
+  // Fetch kayaks from the API
+  axios
+    .get(`${import.meta.env.VITE_SERVER_URL}/kayaks`)
+    .then((response) => {
+      // Filter kayaks to include only club kayaks
+      const clubKayaks = response.data.filter(kayak => kayak.ownerType === "Club Boat");
+      setKayaks(clubKayaks);
+    })
+    .catch((error) => {
+      console.error("Error fetching kayaks:", error);
+    });
+}, []);
 
   useEffect(() => {
     // Filter kayaks based on formData state
@@ -221,7 +222,7 @@ const KayakRecommendationPage = () => {
 
       {showRecommendations && (
         <>
-          <h2>This are the kayaks which fit your needs. Feel free to change some values to get other results instantly.</h2>
+          <h2 className="text-center my-2">This are the kayaks which fit your needs. Feel free to change some values to get other results instantly.</h2>
           <ul className="flex flex-wrap">
             {filteredKayaks.length > 0 ? (
               filteredKayaks.map((kayak) => (
