@@ -11,6 +11,7 @@ function AuthProviderWrapper(props) {
 
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
+    console.log("Token stored:", token); // Debugging log
   };
 
   const authenticateUser = () => {
@@ -37,6 +38,7 @@ function AuthProviderWrapper(props) {
           console.log("Authenticated user:", user); // Debugging log
           // Update state variables
           setIsLoggedIn(true);
+          console.log("isLoggedIn:", true); // Debugging log
           setIsLoading(false);
           setUser(user);
           setIsAdmin(user.role === "admin");
