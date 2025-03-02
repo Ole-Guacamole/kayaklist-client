@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutPage = () => {
   return (
-    <div className="about-page p-2 m-6" >
+    <div className="about-page p-2 m-6 max-w-xl" >
       <h1 className="text-3xl font-bold mb-4">About The Kayak Catalogue Project</h1>
       <p className="mb-4">
         This website was built by Sven Ole Spindler during a fullstack web
