@@ -55,7 +55,7 @@ function App() {
 
         <Route path="/kayaks/:id" element={<IsPrivate><KayakDetailsPage /></IsPrivate>} />
 
-        <Route path="/about" element={<IsPrivate><AboutPage /></IsPrivate>} />
+        <Route path="/about" element={<AboutPage />} />
 
         <Route path="/kayaks/" element={<IsPrivate><KayakListPage /></IsPrivate>} />
 
